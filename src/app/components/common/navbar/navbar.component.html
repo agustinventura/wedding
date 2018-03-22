@@ -1,11 +1,30 @@
-<nav>
+<nav class="teal lighten-3">
   <div class="nav-wrapper">
-    <a routerLink="home" class="brand-logo">Mar&iacute;a y Agust&iacute;n</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a routerLink="where" routerLinkActive="active">Dónde</a></li>
-      <li><a routerLink="home"routerLinkActive="active">Vestuario</a></li>
-      <li><a routerLink="gift" routerLinkActive="active">Regalo</a></li>
-      <li><a routerLink="confirm" routerLinkActive="active">¡Me apunto!</a></li>
+    <a href="" class="page-title">María y Agustín</a>
+
+    <a materialize="sideNav" [materializeParams]="sideNavParams" [materializeActions]="sideNavActions" data-activates="nav-mobile"
+      class="button-collapse hide-on-large-only">
+      <i class="material-icons white-text">menu</i>
+    </a>
+
+    <ul class="right hide-on-med-and-down">
+      <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
+        <a [routerLink]="menuItem.route">{{ menuItem.name | uppercase }}</a>
+      </li>
+    </ul>
+
+    <ul id="nav-mobile" class="side-nav teal lighten-3">
+      <li>
+        <a>
+          <i class="material-icons white-text" (click)="close()">close</i>
+        </a>
+      </li>
+      <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
+        <a [routerLink]="menuItem.route" class="white-text" (click)="close()">{{ menuItem.name | uppercase }}</a>
+      </li>
+      <div class="divider">
+
+      </div>
     </ul>
   </div>
 </nav>
