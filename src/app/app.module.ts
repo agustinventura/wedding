@@ -11,13 +11,15 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AuthService } from './services/auth.service';
+import { FirebaseAuthService } from './services/firebaseauth.service';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { WhereComponent } from './components/where/where.component';
 import { DresscodeComponent } from './components/dresscode/dresscode.component';
 import { GiftComponent } from './components/gift/gift.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthguardService } from './services/authguard.service';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
     WhereComponent,
     DresscodeComponent,
     GiftComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
     AngularFireAuthModule,
     AppRoutingModule
   ],
-  providers: [ AuthService ],
+  providers: [ FirebaseAuthService, AuthguardService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

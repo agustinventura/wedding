@@ -18,15 +18,15 @@ export class NavbarComponent implements OnInit {
   constructor() {
     this.sideNavActions = new EventEmitter<any>();
     this.sideNavParams = [];
+  }
+
+  ngOnInit() {
     this.menuItems = [
       { name: 'Dónde', route: '/where' },
       { name: 'Vestuario', route: '/dresscode' },
       { name: 'Regalo', route: '/gift' },
       { name: 'Me apunto', route: '/confirm' }
-  ];
-  }
-
-  ngOnInit() {
+    ];
   }
 
   close() {

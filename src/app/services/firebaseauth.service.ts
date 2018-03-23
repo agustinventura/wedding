@@ -5,13 +5,17 @@ import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
-export class AuthService {
+export class FirebaseAuthService {
 
   private user: Observable<firebase.User>;
   private userDetails: firebase.User;
 
   constructor(private firebaseAuth: AngularFireAuth) {
-    this.user = firebaseAuth.authState;
+
+  }
+
+  setupAuthentication() {
+    this.user = this.firebaseAuth.authState;
     this.user.subscribe(
       (user) => {
         if (user) {
@@ -28,5 +32,13 @@ export class AuthService {
     return this.firebaseAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
+  }
+
+  isLogged() {
+    if (this.userDetails) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

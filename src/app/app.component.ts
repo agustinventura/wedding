@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './services/auth.service';
+import { FirebaseAuthService } from './services/firebaseauth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'app';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: FirebaseAuthService) {}
 
   signInWithGoogle() {
     this.authService.signInWithGoogle()
