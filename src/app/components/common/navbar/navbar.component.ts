@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
+import { LoginService } from '../../../services/login.service';
+
 export interface MenuItem {
   name: string;
   route: string;
@@ -15,7 +17,7 @@ export class NavbarComponent implements OnInit {
   sideNavParams: any[];
   menuItems: MenuItem[];
 
-  constructor() {
+  constructor(private loginService: LoginService) {
     this.sideNavActions = new EventEmitter<any>();
     this.sideNavParams = [];
   }
@@ -31,5 +33,13 @@ export class NavbarComponent implements OnInit {
 
   close() {
     this.sideNavActions.emit({ action: 'sideNav', params: ['hide'] });
+  }
+
+  isLoggedIn() {
+    return this.loginService.isLogged();
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }

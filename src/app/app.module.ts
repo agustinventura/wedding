@@ -11,7 +11,9 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { FirebaseAuthService } from './services/firebaseauth.service';
+import { FirebaseAuthenticationService } from './services/firebase-authentication.service';
+import { FirebaseAuthorizationService } from './services/firebase-authorization.service';
+
 import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { WhereComponent } from './components/where/where.component';
@@ -20,6 +22,7 @@ import { GiftComponent } from './components/gift/gift.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthguardService } from './services/authguard.service';
+import { LoginService } from './services/login.service';
 
 
 @NgModule({
@@ -41,7 +44,7 @@ import { AuthguardService } from './services/authguard.service';
     AngularFireAuthModule,
     AppRoutingModule
   ],
-  providers: [ FirebaseAuthService, AuthguardService ],
+  providers: [ FirebaseAuthenticationService, AuthguardService, FirebaseAuthorizationService, LoginService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
