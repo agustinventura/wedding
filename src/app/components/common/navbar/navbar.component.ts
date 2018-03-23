@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 
 import { LoginService } from '../../../services/login.service';
 
+import { User } from '../../../model/user';
+
 export interface MenuItem {
   name: string;
   route: string;
@@ -16,6 +18,7 @@ export class NavbarComponent implements OnInit {
   sideNavActions: EventEmitter<any>;
   sideNavParams: any[];
   menuItems: MenuItem[];
+  user: User = null;
 
   constructor(private loginService: LoginService) {
     this.sideNavActions = new EventEmitter<any>();
@@ -36,7 +39,14 @@ export class NavbarComponent implements OnInit {
   }
 
   isLoggedIn() {
-    return this.loginService.isLogged();
+    if (this.loginService.isLogged()) {
+      if (this.user == null) {
+        this.user = this.loginService.user;
+      }
+      return true;
+    } else {
+      return false;
+    }
   }
 
   logout() {
