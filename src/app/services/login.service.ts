@@ -37,8 +37,6 @@ export class LoginService {
 
   private authorize(authenticatedUser: User) {
     this.firebaseAuthorizationService.authorize(authenticatedUser).subscribe(user => {
-      console.log('Authenticated: ');
-      console.log(user);
       this.user = user;
     });
   }

@@ -21,7 +21,13 @@ export class FirestoreUserService {
   constructor(private firestore: AngularFirestore) {}
 
   register(user: User) {
-    this.firestore.collection('users').add(user);
+    console.log('Registering');
+    console.log(user);
+    this.firestore.collection('users').add({
+      name: user.name,
+      email: user.email ? user.email : null,
+      phone: user.phone ? user.phone : null
+    });
   }
 
   getUserByEmail(email: string) {
