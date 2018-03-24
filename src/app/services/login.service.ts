@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 
 import { FirebaseAuthenticationService } from './firebase-authentication.service';
+import { FirebaseAuthorizationService } from './firebase-authorization.service';
 
 import { User } from '../model/user';
 @Injectable()
 export class LoginService {
   user: User;
   constructor(
-    private firebaseAuthenticationService: FirebaseAuthenticationService
+    private firebaseAuthenticationService: FirebaseAuthenticationService,
+    private firebaseAuthorizationService: FirebaseAuthorizationService
   ) {}
 
   isLogged() {
@@ -20,8 +22,11 @@ export class LoginService {
 
   loginWithGoogle() {
     if (!this.user) {
-      this.firebaseAuthenticationService
-      .logIn().then(res => this.authorize(res));
+      this.firebaseAuthenticationService.logIn().subscribe(user => {
+        if (user) {
+          this.authorize(user);
+        }
+      });
     }
   }
 
@@ -30,7 +35,11 @@ export class LoginService {
     this.firebaseAuthenticationService.logOut();
   }
 
-  private authorize(user: User) {
-    this.user = user;
+  private authorize(authenticatedUser: User) {
+    this.firebaseAuthorizationService.authorize(authenticatedUser).subscribe(user => {
+      console.log('Authenticated: ');
+      console.log(user);
+      this.user = user;
+    });
   }
 }

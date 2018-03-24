@@ -3,38 +3,38 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { of } from 'rxjs/observable/of';
+import { switchMap } from 'rxjs/operators';
 
 import { User } from '../model/user';
 
 @Injectable()
 export class FirebaseAuthenticationService {
   private user: User = null;
+  private firebaseUser: Observable<firebase.User> = null;
 
   constructor(private firebaseAuth: AngularFireAuth) {
+    this.firebaseUser = this.firebaseAuth.authState;
+    this.firebaseUser.subscribe(user => {
+      if (user) {
+        this.user = new User(user.displayName, user.email);
+      } else {
+        this.user = null;
+      }
+    });
   }
 
-
-  logIn(): Promise<User> {
+  logIn() {
     if (this.user) {
-      return this.getUserPromise();
+      return of(this.user);
     } else {
-      return this.newLogIn();
+      this.newLogIn();
+      return this.firebaseUser.switchMap(() => of(this.user));
     }
   }
 
-  private getUserPromise() {
-    return new Promise<User>((resolve, reject) => {
-      resolve(this.user);
-    });
-  }
-
-  private newLogIn(): Promise<User> {
-    return this.firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider()
-    ).then(res => {
-      this.user = new User(res.user.displayName, res.user.email);
-      return this.getUserPromise();
-    });
+  private newLogIn() {
+    this.firebaseAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   logOut() {

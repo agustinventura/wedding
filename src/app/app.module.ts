@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { MaterializeModule } from 'angular2-materialize';
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 
 import { environment } from '../environments/environment';
@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 
 import { FirebaseAuthenticationService } from './services/firebase-authentication.service';
 import { FirebaseAuthorizationService } from './services/firebase-authorization.service';
-
+import { FirestoreUserService } from './services/firestore-user.service';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { WhereComponent } from './components/where/where.component';
@@ -23,7 +23,6 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthguardService } from './services/authguard.service';
 import { LoginService } from './services/login.service';
-
 
 @NgModule({
   declarations: [
@@ -39,12 +38,21 @@ import { LoginService } from './services/login.service';
   imports: [
     BrowserModule,
     MaterializeModule,
-    AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
-    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(
+      environment.firebase,
+      'angular-auth-firebase'
+    ),
+    AngularFirestoreModule,
     AngularFireAuthModule,
     AppRoutingModule
   ],
-  providers: [ FirebaseAuthenticationService, AuthguardService, FirebaseAuthorizationService, LoginService ],
+  providers: [
+    FirebaseAuthenticationService,
+    AuthguardService,
+    FirebaseAuthorizationService,
+    LoginService,
+    FirestoreUserService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
