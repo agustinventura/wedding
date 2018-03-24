@@ -24,7 +24,7 @@ export class FirestoreUserService {
     console.log('Registering');
     console.log(user);
     this.firestore.collection('users').add({
-      name: user.name,
+      name: user.name ? user.name : null,
       email: user.email ? user.email : null,
       phone: user.phone ? user.phone : null
     });
