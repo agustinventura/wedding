@@ -40,13 +40,16 @@ export class NavbarComponent implements OnInit {
   }
 
   isLoggedIn() {
-    if (this.loginService.isLogged()) {
-      if (this.user == null) {
+    if (this.user == null) {
+      if (this.loginService.isLogged()) {
+        console.log('user logged');
         this.user = this.loginService.user;
+        return true;
+      } else {
+        return false;
       }
-      return true;
     } else {
-      return false;
+      return true;
     }
   }
 
