@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LoginService } from '../../../services/login.service';
 
@@ -20,7 +21,7 @@ export class NavbarComponent implements OnInit {
   menuItems: MenuItem[];
   user: User = null;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private router: Router) {
     this.sideNavActions = new EventEmitter<any>();
     this.sideNavParams = [];
   }
@@ -50,6 +51,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    this.close();
     this.loginService.logout();
+    this.router.navigate(['/logout', this.user.name]);
+    this.user = null;
   }
 }

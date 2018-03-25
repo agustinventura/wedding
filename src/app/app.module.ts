@@ -23,6 +23,7 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthguardService } from './services/authguard.service';
 import { LoginService } from './services/login.service';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LoginService } from './services/login.service';
     DresscodeComponent,
     GiftComponent,
     ConfirmComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

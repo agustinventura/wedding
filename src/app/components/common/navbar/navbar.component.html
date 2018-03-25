@@ -11,7 +11,9 @@
       <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
         <a [routerLink]="menuItem.route">{{ menuItem.name | uppercase }}</a>
       </li>
-      <li *ngIf="isLoggedIn()"><a class="waves-effect waves-light btn" (click)="logout()">Salir</a></li>
+      <li *ngIf="isLoggedIn()">
+        <a class="waves-effect waves-light btn" (click)="logout()">Salir</a>
+      </li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav teal lighten-3">
@@ -20,13 +22,18 @@
           <i class="material-icons white-text" (click)="close()">close</i>
         </a>
       </li>
+      <li>
+        <span *ngIf="isLoggedIn()" class="sidenav-user white-text">Hola {{user.name}}</span>
+      </li>
       <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
         <a [routerLink]="menuItem.route" class="white-text" (click)="close()">{{ menuItem.name | uppercase }}</a>
       </li>
       <div class="divider">
 
       </div>
-      <li *ngIf="isLoggedIn()"><a class="waves-effect waves-light btn" (click)="logout()">Salir</a></li>
+      <li *ngIf="isLoggedIn()">
+        <a class="waves-effect waves-light btn" (click)="logout()" routerLink="logout">Salir</a>
+      </li>
     </ul>
   </div>
 </nav>

@@ -8,6 +8,7 @@ import { DresscodeComponent } from './components/dresscode/dresscode.component';
 import { GiftComponent } from './components/gift/gift.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,8 +16,13 @@ const routes: Routes = [
   { path: 'where', component: WhereComponent },
   { path: 'dresscode', component: DresscodeComponent },
   { path: 'gift', component: GiftComponent },
-  { path: 'confirm', component: ConfirmComponent, canActivate: [AuthguardService] },
+  {
+    path: 'confirm',
+    component: ConfirmComponent,
+    canActivate: [AuthguardService]
+  },
   { path: 'login', component: LoginComponent },
+  { path: 'logout/:name', component: LogoutComponent },
   { path: '**', redirectTo: '' }
 ];
 
@@ -24,4 +30,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
