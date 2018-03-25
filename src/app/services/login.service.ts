@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-
+import { Observable } from 'rxjs/Observable';
 import { FirebaseAuthenticationService } from './firebase-authentication.service';
 import { FirebaseAuthorizationService } from './firebase-authorization.service';
 
 import { User } from '../model/user';
+import { of } from 'rxjs/observable/of';
 @Injectable()
 export class LoginService {
   user: User;
+  authentication: Observable<User>;
+
   constructor(
     private firebaseAuthenticationService: FirebaseAuthenticationService,
     private firebaseAuthorizationService: FirebaseAuthorizationService
@@ -22,22 +25,36 @@ export class LoginService {
 
   loginWithGoogle() {
     if (!this.user) {
-      this.firebaseAuthenticationService.logIn().subscribe(user => {
+      const authentication = this.firebaseAuthenticationService.logIn();
+      authentication.subscribe(user => {
+        console.log('subscribe de loginWithGoogle');
         if (user) {
-          this.authorize(user);
+          this.user = user;
+        } else {
+          this.user = null;
         }
       });
+      return authentication;
+    } else {
+      return of(this.user);
     }
   }
 
-  public logout() {
+  logout() {
     this.user = null;
     this.firebaseAuthenticationService.logOut();
   }
 
-  private authorize(authenticatedUser: User) {
-    this.firebaseAuthorizationService.authorize(authenticatedUser).subscribe(user => {
-      this.user = user;
+  authorize() {
+    const authorization: Observable<User> = this.loginWithGoogle().switchMap(() => this.firebaseAuthorizationService.authorize(this.user));
+    authorization.subscribe(user => {
+      console.log('subscribe de authorize');
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
     });
+    return authorization;
   }
 }

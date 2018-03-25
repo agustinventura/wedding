@@ -21,8 +21,6 @@ export class FirestoreUserService {
   constructor(private firestore: AngularFirestore) {}
 
   register(user: User) {
-    console.log('Registering');
-    console.log(user);
     this.firestore.collection('users').add({
       name: user.name ? user.name : null,
       email: user.email ? user.email : null,

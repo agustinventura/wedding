@@ -15,6 +15,13 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    this.loginService.loginWithGoogle();
+    this.loginService.authorize().subscribe(user => {
+      console.log('subscribe de googleLogin');
+      if (user) {
+        console.log('ok');
+      } else {
+        console.log('uops');
+      }
+    });
   }
 }

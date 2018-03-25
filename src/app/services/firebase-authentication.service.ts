@@ -15,13 +15,6 @@ export class FirebaseAuthenticationService {
 
   constructor(private firebaseAuth: AngularFireAuth) {
     this.firebaseUser = this.firebaseAuth.authState;
-    this.firebaseUser.subscribe(user => {
-      if (user) {
-        this.user = new User(user.displayName, user.email);
-      } else {
-        this.user = null;
-      }
-    });
   }
 
   logIn() {
@@ -29,6 +22,14 @@ export class FirebaseAuthenticationService {
       return of(this.user);
     } else {
       this.newLogIn();
+      this.firebaseUser.subscribe(user => {
+        console.log('subscribe de logIn');
+        if (user) {
+          this.user = new User(user.displayName, user.email);
+        } else {
+          this.user = null;
+        }
+      });
       return this.firebaseUser.switchMap(() => of(this.user));
     }
   }
