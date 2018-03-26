@@ -6,8 +6,9 @@ import {
 } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/empty';
+import 'rxjs/add/operator/concatMap';
+import 'rxjs/add/operator/catch';
 import { of } from 'rxjs/observable/of';
-import { switchMap } from 'rxjs/operators';
 
 import { User } from '../model/user';
 
@@ -23,16 +24,18 @@ export class FirebaseAuthorizationService {
     let fsUser: Observable<User> = Observable.empty<User>();
     if (user) {
       if (user.email) {
-         fsUser = this.firestoreUserService.getUserByEmail(user.email);
-        fsUser.subscribe(firestoreUser => {
-          if (firestoreUser) {
-            this.user = firestoreUser;
-          } else {
-            this.firestoreUserService.register(user);
-            this.user = firestoreUser;
-          }
-        });
+        fsUser = this.firestoreUserService
+          .getUserByEmail(user.email)
+          .concatMap(anything => {
+            if (anything) {
+              console.log(anything);
+              return of(user);
+            }
+          }).catch(err => {
+            return this.firestoreUserService.register(user);
+          });
       }
-    }return fsUser;
+    }
+    return fsUser;
   }
 }

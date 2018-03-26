@@ -5,6 +5,9 @@ import { FirebaseAuthorizationService } from './firebase-authorization.service';
 
 import { User } from '../model/user';
 import { of } from 'rxjs/observable/of';
+import 'rxjs/add/operator/concatMap';
+import 'rxjs/add/operator/concat';
+
 @Injectable()
 export class LoginService {
   user: User;
@@ -25,19 +28,9 @@ export class LoginService {
 
   loginWithGoogle() {
     if (!this.user) {
-      const authentication = this.firebaseAuthenticationService.logIn();
-      authentication.subscribe(user => {
-        console.log('subscribe de loginWithGoogle');
-        if (user) {
-          this.user = user;
-        } else {
-          this.user = null;
-        }
-      });
-      return authentication;
-    } else {
-      return of(this.user);
+      return this.firebaseAuthenticationService.logIn();
     }
+    return of(this.user);
   }
 
   logout() {
@@ -46,15 +39,6 @@ export class LoginService {
   }
 
   authorize() {
-    const authorization: Observable<User> = this.loginWithGoogle().switchMap(() => this.firebaseAuthorizationService.authorize(this.user));
-    authorization.subscribe(user => {
-      console.log('subscribe de authorize');
-      if (user) {
-        this.user = user;
-      } else {
-        this.user = null;
-      }
-    });
-    return authorization;
+    return this.loginWithGoogle().concatMap(user => this.firebaseAuthorizationService.authorize(user));
   }
 }

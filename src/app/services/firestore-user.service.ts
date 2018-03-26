@@ -9,33 +9,39 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { from } from 'rxjs/observable/from';
-import { switchMap } from 'rxjs/operators';
+import 'rxjs/operator/concatMap';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import { User } from '../model/user';
+import { error } from 'util';
 @Injectable()
 export class FirestoreUserService {
-  usersCol: AngularFirestoreCollection<User>;
-  users: Observable<User[]>;
-  user: User;
 
   constructor(private firestore: AngularFirestore) {}
 
-  register(user: User) {
+  register(user: User): Observable<User> {
     this.firestore.collection('users').add({
       name: user.name ? user.name : null,
       email: user.email ? user.email : null,
       phone: user.phone ? user.phone : null
     });
+    return of(user);
   }
 
-  getUserByEmail(email: string) {
-    this.usersCol = this.firestore.collection('users', ref =>
+  getUserByEmail(email: string): Observable<User> {
+    const usersCol = this.firestore.collection('users', ref =>
       ref.where('email', '==', email)
     );
-    this.users = this.usersCol.valueChanges();
-    this.users.subscribe(users => {
-      this.user = users[0];
+    const users = usersCol.valueChanges();
+    return users.concatMap(firebaseUsers => {
+      console.log('subscribe de getUserByEmail');
+      if (firebaseUsers.length > 0) {
+        const user = <any>firebaseUsers[0];
+        return of(new User(user.name, user.email, user.phone));
+      } else {
+        return Observable.throw('User ' + email + ' not registered');
+      }
     });
-    return this.users.switchMap(() => of(this.user));
   }
 }

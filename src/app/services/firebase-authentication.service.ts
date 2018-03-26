@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { of } from 'rxjs/observable/of';
-import { switchMap } from 'rxjs/operators';
+import 'rxjs/add/operator/concatMap';
+import 'rxjs/add/operator/first';
 
 import { User } from '../model/user';
 
@@ -17,20 +18,16 @@ export class FirebaseAuthenticationService {
     this.firebaseUser = this.firebaseAuth.authState;
   }
 
-  logIn() {
+  logIn(): Observable<User> {
     if (this.user) {
       return of(this.user);
     } else {
       this.newLogIn();
-      this.firebaseUser.subscribe(user => {
-        console.log('subscribe de logIn');
-        if (user) {
-          this.user = new User(user.displayName, user.email);
-        } else {
-          this.user = null;
-        }
-      });
-      return this.firebaseUser.switchMap(() => of(this.user));
+      return this.firebaseUser.concatMap(user => {
+        console.log('concat map de logIn');
+        this.user = new User(user.displayName, user.email);
+        return of(this.user);
+      }).first();
     }
   }
 
