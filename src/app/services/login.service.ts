@@ -39,6 +39,12 @@ export class LoginService {
   }
 
   authorize() {
-    return this.loginWithGoogle().concatMap(user => this.firebaseAuthorizationService.authorize(user));
+    this.authentication = this.loginWithGoogle().concatMap(user => this.firebaseAuthorizationService.authorize(user)).concatMap(user => {
+      if (user) {
+        this.user = user;
+      }
+      return of(this.user);
+    });
+    return this.authentication;
   }
 }

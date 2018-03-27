@@ -23,7 +23,7 @@
         </a>
       </li>
       <li>
-        <span *ngIf="isLoggedIn()" class="sidenav-user white-text">Hola {{user.name}}</span>
+        <span *ngIf="isLoggedIn() | async" class="sidenav-user white-text">Hola {{user.name}}</span>
       </li>
       <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
         <a [routerLink]="menuItem.route" class="white-text" (click)="close()">{{ menuItem.name | uppercase }}</a>

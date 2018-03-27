@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LoginService } from '../../services/login.service';
 
@@ -9,7 +10,7 @@ import { LoginService } from '../../services/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     this.loginService.authorize().subscribe(user => {
       console.log('subscribe de googleLogin');
       if (user) {
-        console.log('ok');
+        console.log('navigate a confirm');
+        this.router.navigate(['confirm']);
       } else {
         console.log('uops');
       }
