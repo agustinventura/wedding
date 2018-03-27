@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { FirebaseAuthenticationService } from './firebase-authentication.service';
-import { FirebaseAuthorizationService } from './firebase-authorization.service';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+import { FirebaseAuthenticationService } from "./firebase-authentication.service";
+import { FirebaseAuthorizationService } from "./firebase-authorization.service";
 
-import { User } from '../model/user';
+import { User } from "../model/user";
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/concat';
@@ -26,25 +26,31 @@ export class LoginService {
     }
   }
 
-  loginWithGoogle() {
+  private firebaseLogin() {
+    console.log('firebaseLogin');
     if (!this.user) {
-      return this.firebaseAuthenticationService.logIn();
+      return this.firebaseAuthenticationService.googleLogin().first();
     }
     return of(this.user);
   }
 
   logout() {
     this.user = null;
-    this.firebaseAuthenticationService.logOut();
+    this.firebaseAuthenticationService.googleLogout();
   }
 
-  authorize() {
-    this.authentication = this.loginWithGoogle().concatMap(user => this.firebaseAuthorizationService.authorize(user)).concatMap(user => {
-      if (user) {
-        this.user = user;
-      }
-      return of(this.user);
-    });
+  login() {
+    console.log('login');
+    this.authentication = this.firebaseLogin()
+      .first()
+      .concatMap(user => this.firebaseAuthorizationService.authorize(user))
+      .concatMap(user => {
+        console.log('concatMap de login');
+        if (user) {
+          this.user = user;
+        }
+        return of(this.user);
+      });
     return this.authentication;
   }
 }

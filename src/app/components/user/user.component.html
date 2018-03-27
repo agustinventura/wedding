@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <p class="col s12">
+      Parece que nos falta alguno de tus datos de contacto, ¿nos los completas?
+    </p>
+    <p class="col s12">
+        También puedes aprovechar para actualizar los que tenemos.
+      </p>
+  </div>
+  <div class="row">
+    <form class="col s12">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="phone" type="text" placeholder="Nombre" class="validate" [(ngModel)]="user.name" name="name" required>
+        <label for="icon_telephone">Nombre y apellidos</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">phone</i>
+        <input id="phone" placeholder="+34999999999" type="tel" class="validate" [(ngModel)]="user.phone" name="phone" required>
+        <label for="icon_telephone">Teléfono</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">mail</i>
+        <input id="phone" type="email" placeholder="mi@email.com" class="validate" [(ngModel)]="user.email" name="email" required>
+        <label for="icon_telephone">Email</label>
+      </div>
+    </form>
+  </div>
+</div>

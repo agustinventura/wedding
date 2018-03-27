@@ -18,16 +18,21 @@ export class FirebaseAuthenticationService {
     this.firebaseUser = this.firebaseAuth.authState;
   }
 
-  logIn(): Observable<User> {
+  googleLogin(): Observable<User> {
+    console.log('googleLogin');
     if (this.user) {
       return of(this.user);
     } else {
       this.newLogIn();
       return this.firebaseUser.concatMap(user => {
-        console.log('concat map de logIn');
-        this.user = new User(user.displayName, user.email);
-        return of(this.user);
-      }).first();
+        console.log('concatMap de googleLogin');
+        if (user) {
+          this.user = new User(user.displayName, user.email);
+          return of(this.user);
+        } else {
+          return Observable.empty<User>();
+        }
+      });
     }
   }
 
@@ -35,7 +40,8 @@ export class FirebaseAuthenticationService {
     this.firebaseAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
-  logOut() {
+  googleLogout() {
+    console.log('googleLogout');
     this.user = null;
     return this.firebaseAuth.auth.signOut();
   }

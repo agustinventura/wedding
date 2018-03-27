@@ -30,12 +30,13 @@ export class FirestoreUserService {
   }
 
   getUserByEmail(email: string): Observable<User> {
+    console.log('getUserByEmail');
     const usersCol = this.firestore.collection('users', ref =>
       ref.where('email', '==', email)
     );
     const users = usersCol.valueChanges();
     return users.concatMap(firebaseUsers => {
-      console.log('subscribe de getUserByEmail');
+      console.log('concat de getUserByEmail');
       if (firebaseUsers.length > 0) {
         const user = <any>firebaseUsers[0];
         return of(new User(user.name, user.email, user.phone));

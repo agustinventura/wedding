@@ -6,7 +6,7 @@
       class="button-collapse hide-on-large-only">
       <i class="material-icons white-text">menu</i>
     </a>
-    <span *ngIf="isLoggedIn()" class="navbar-user">Hola {{user.name}}</span>
+    <span *ngIf="isLoggedIn()" class="navbar-user hide-on-med-and-down">Hola {{user.name}}</span>
     <ul class="right hide-on-med-and-down">
       <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
         <a [routerLink]="menuItem.route">{{ menuItem.name | uppercase }}</a>
@@ -23,7 +23,7 @@
         </a>
       </li>
       <li>
-        <span *ngIf="isLoggedIn() | async" class="sidenav-user white-text">Hola {{user.name}}</span>
+        <span *ngIf="isLoggedIn()" class="sidenav-user white-text">Hola {{user.name}}</span>
       </li>
       <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
         <a [routerLink]="menuItem.route" class="white-text" (click)="close()">{{ menuItem.name | uppercase }}</a>

@@ -9,7 +9,7 @@ import { GiftComponent } from './components/gift/gift.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
-
+import { UserComponent } from './components/user/user.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -19,6 +19,11 @@ const routes: Routes = [
   {
     path: 'confirm',
     component: ConfirmComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'user',
+    component: UserComponent,
     canActivate: [AuthguardService]
   },
   { path: 'login', component: LoginComponent },

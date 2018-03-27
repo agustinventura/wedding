@@ -16,11 +16,14 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    this.loginService.authorize().subscribe(user => {
+    this.loginService.login().subscribe(user => {
       console.log('subscribe de googleLogin');
       if (user) {
-        console.log('navigate a confirm');
-        this.router.navigate(['confirm']);
+        if (user.isComplete()) {
+          this.router.navigate(['confirm']);
+        } else {
+          this.router.navigate(['user']);
+        }
       } else {
         console.log('uops');
       }

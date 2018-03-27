@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterializeModule } from 'angular2-materialize';
 
@@ -24,6 +25,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthguardService } from './services/authguard.service';
 import { LoginService } from './services/login.service';
 import { LogoutComponent } from './components/logout/logout.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -35,10 +37,13 @@ import { LogoutComponent } from './components/logout/logout.component';
     GiftComponent,
     ConfirmComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     MaterializeModule,
     AngularFireModule.initializeApp(
       environment.firebase,
