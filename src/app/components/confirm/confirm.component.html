@@ -1,3 +1,52 @@
-<p>
-  confirm works!
-</p>
+<div class="container">
+  <div class="row">
+    <p class="col s12">
+      {{user.name}} necesitamos saber estas cosas para organizar bien la boda, ¿nos las respondes?
+    </p>
+    <p class="col s12">
+      Por supuesto puedes cambiar tus respuestas cuando quieras hasta el día _día_
+    </p>
+  </div>
+  <div class="row">
+    <form class="col s12" [formGroup]="preferences">
+      <div class="row">
+        <span class="col s6">¿C&oacute;mo vienes?</span>
+        <!-- Switch -->
+        <div class="col s6 switch">
+          <label>
+            Solo
+            <input type="checkbox" formControlName="accompanied">
+            <span class="lever"></span>
+            Acompañado
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <span class="col s6">¿Traes niños?</span>
+        <!-- Switch -->
+        <div class="col s6 switch">
+          <label>
+            No
+            <input type="checkbox" formControlName="children">
+            <span class="lever"></span>
+            Si
+          </label>
+        </div>
+      </div>
+      <div class="row" *ngIf="preferences.get('children').value">
+          <span class="col s6">¿Cuantos?</span>
+          <!-- Switch -->
+          <div class="col s6 switch">
+            <label>
+              No
+              <input type="checkbox" formControlName="accompanied">
+              <span class="lever"></span>
+              Si
+            </label>
+          </div>
+        </div>
+    </form>
+    <p>{{preferences.value | json}}</p>
+    <p>{{preferences.get('accompanied')}}</p>
+  </div>
+</div>
