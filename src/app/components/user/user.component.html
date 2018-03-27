@@ -8,21 +8,25 @@
       </p>
   </div>
   <div class="row">
-    <form class="col s12">
+    <form class="col s12" (ngSubmit)="submit()" #userForm="ngForm">
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
         <input id="phone" type="text" placeholder="Nombre" class="validate" [(ngModel)]="user.name" name="name" required>
-        <label for="icon_telephone">Nombre y apellidos</label>
+        <label for="icon_telephone" class="active">Nombre y apellidos</label>
       </div>
       <div class="input-field col s12">
         <i class="material-icons prefix">phone</i>
         <input id="phone" placeholder="+34999999999" type="tel" class="validate" [(ngModel)]="user.phone" name="phone" required>
-        <label for="icon_telephone">Teléfono</label>
+        <label for="icon_telephone" class="active">Teléfono</label>
       </div>
       <div class="input-field col s12">
         <i class="material-icons prefix">mail</i>
-        <input id="phone" type="email" placeholder="mi@email.com" class="validate" [(ngModel)]="user.email" name="email" required>
-        <label for="icon_telephone">Email</label>
+        <input id="mail" type="email" placeholder="mi@email.com" class="validate" [(ngModel)]="user.email" name="email" required [disabled]="user.email">
+        <label for="icon_mail" class="active">Email</label>
+      </div>
+      <div class="col s12 center">
+          <button type="submit" class="waves-effect waves-light btn-large"
+          [disabled]="!userForm.form.valid">Ya esta</button>
       </div>
     </form>
   </div>

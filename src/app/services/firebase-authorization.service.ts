@@ -27,10 +27,10 @@ export class FirebaseAuthorizationService {
       if (user.email) {
         fsUser = this.firestoreUserService
           .getUserByEmail(user.email)
-          .concatMap(anything => {
+          .concatMap(storedUser => {
             console.log('concatMap de authorize');
-            if (anything) {
-              return of(user);
+            if (storedUser) {
+              return of(storedUser);
             }
           }).catch(err => {
             console.log('catch de authorize');

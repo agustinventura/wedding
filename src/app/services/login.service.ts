@@ -43,14 +43,18 @@ export class LoginService {
     console.log('login');
     this.authentication = this.firebaseLogin()
       .first()
-      .concatMap(user => this.firebaseAuthorizationService.authorize(user))
-      .concatMap(user => {
-        console.log('concatMap de login');
-        if (user) {
-          this.user = user;
-        }
-        return of(this.user);
-      });
+      .concatMap(authenticatedUser =>
+        this.firebaseAuthorizationService
+          .authorize(authenticatedUser)
+          .concatMap(authorizedUser => {
+            console.log('concatMap de login');
+            if (authorizedUser) {
+              console.log(authorizedUser);
+              this.user = authorizedUser;
+            }
+            return of(this.user);
+          })
+      );
     return this.authentication;
   }
 }

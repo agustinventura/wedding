@@ -27,7 +27,7 @@ export class FirebaseAuthenticationService {
       return this.firebaseUser.concatMap(user => {
         console.log('concatMap de googleLogin');
         if (user) {
-          this.user = new User(user.displayName, user.email);
+          this.user = new User('', user.displayName, user.email);
           return of(this.user);
         } else {
           return Observable.empty<User>();
