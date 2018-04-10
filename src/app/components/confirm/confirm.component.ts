@@ -11,6 +11,7 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 export class ConfirmComponent implements OnInit {
   user: User = null;
   preferences: FormGroup = null;
+  children = [1, 2, 3, 4];
 
 
   constructor(private loginService: LoginService, private formBuilder: FormBuilder) {
@@ -20,7 +21,9 @@ export class ConfirmComponent implements OnInit {
   createForm() {
     this.preferences = this.formBuilder.group({
       accompanied: false,
-      children: false
+      children: false,
+      numberOfChildren: 0,
+      specialNeeds: '',
     });
   }
 

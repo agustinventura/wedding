@@ -21,6 +21,16 @@
           </label>
         </div>
       </div>
+      <div class="row" *ngIf="preferences.get('accompanied').touched">
+        <div class="col s12" *ngIf="preferences.get('accompanied').value;else not_accompanied">
+          Estupendo, cuanto más seamos, más divertido :)
+        </div>
+        <ng-template #not_accompanied>
+          <div class="col s12">
+            Si al final traes acompañante, ¡no te olvides de avisarnos!
+          </div>
+        </ng-template>
+      </div>
       <div class="row">
         <span class="col s6">¿Traes niños?</span>
         <!-- Switch -->
@@ -34,19 +44,29 @@
         </div>
       </div>
       <div class="row" *ngIf="preferences.get('children').value">
-          <span class="col s6">¿Cuantos?</span>
-          <!-- Switch -->
-          <div class="col s6 switch">
-            <label>
-              No
-              <input type="checkbox" formControlName="accompanied">
-              <span class="lever"></span>
-              Si
-            </label>
+        <span class="col s6">
+            ¿Cuántos?
+        </span>
+        <div class="col s6 input-field">
+            <select class="browser-default">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+        </div>
+      </div>
+      <div class="row">
+          <span class="col s12">
+              ¿Tenéis alguna necesidad especial o alergia alimentaria?
+          </span>
+          <div class="input-field col s12">
+            <textarea id="textarea1" class="materialize-textarea" formControlName="specialNeeds"></textarea>
           </div>
         </div>
     </form>
-    <p>{{preferences.value | json}}</p>
-    <p>{{preferences.get('accompanied')}}</p>
+    <div class="col s12">
+      <p>{{preferences.value | json}}</p>
+    </div>
   </div>
 </div>
