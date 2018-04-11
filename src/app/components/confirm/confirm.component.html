@@ -8,7 +8,7 @@
     </p>
   </div>
   <div class="row">
-    <form class="col s12" [formGroup]="preferences" novalidate>
+    <form class="col s12" [formGroup]="preferences" novalidate (ngSubmit)="save(preferences)">
       <div class="row">
         <span class="col s6">¿C&oacute;mo vienes?</span>
         <!-- Switch -->
@@ -22,18 +22,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="col s12" *ngIf="preferences.get('accompanied').value;else not_accompanied">
+        <div class="col s10 offset-s2" *ngIf="preferences.get('accompanied').value;else not_accompanied">
           Estupendo, cuanto más seamos, más divertido :)
         </div>
         <ng-template #not_accompanied>
-          <div class="col s12">
+          <div class="col s10 offset-s2">
             Si al final traes acompañante, ¡no te olvides de avisarnos!
           </div>
         </ng-template>
       </div>
+      <br/>
+      <div class="divider"></div>
+      <br/>
       <div class="row">
         <span class="col s6">¿Traes niños?</span>
-        <!-- Switch -->
         <div class="col s6 switch">
           <label>
             No
@@ -43,11 +45,11 @@
           </label>
         </div>
       </div>
-      <div class="row" *ngIf="preferences.get('children').value">
-        <span class="col s6">
+      <div class="row valign-wrapper" *ngIf="preferences.get('children').value">
+        <span class="col s5 offset-s2">
           ¿Cuántos?
         </span>
-        <div class="col s6">
+        <div class="col s5">
           <select formControlName="numberOfChildren" materialize="material_select">
             <option value="" disabled class="selectOption">Selecciona</option>
             <option value="1" class="selectOption">1</option>
@@ -56,6 +58,9 @@
           </select>
         </div>
       </div>
+      <br/>
+      <div class="divider"></div>
+      <br/>
       <div class="row">
         <span class="col s12" *ngIf="preferences.get('accompanied').value || preferences.get('children').value; else special_need">
           ¿Tenéis alguna necesidad especial o alergia alimentaria?
@@ -69,31 +74,35 @@
           <textarea id="textarea1" class="materialize-textarea" formControlName="specialNeeds"></textarea>
         </div>
       </div>
-      <div formArrayName="songs" class="row">
-        <div *ngFor="let song of preferences.controls.songs.controls; let i=index">
-          <div>
-            <span>Canción {{i + 1}}</span>
-            <span *ngIf="preferences.controls.songs.controls.length > 1" (click)="removeSong(i)">
-            </span>
-          </div>
-
-          <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+      <br/>
+      <div class="divider"></div>
+      <br/>
+      <div formArrayName="songs">
+        <div class="row">
+          <p class="col s12">
+            Pues por último nos gustaría saber que música te gustaría escuchar en nuestra boda, que canciones crees que nos pegan o te
+            molaría escuchar.
+          </p>
+        </div>
+        <div *ngFor="let song of preferences.controls.songs.controls; let i=index" class="row">
+          <span class="col s10">Canción {{i + 1}}</span>
+          <span class="col s2 right-align">
+            <i *ngIf="preferences.controls.songs.controls.length > 1" (click)="removeSong(i)" class="material-icons">clear</i>
+          </span>
           <div [formGroupName]="i">
-            <!--street-->
-            <div>
-              <label>Título</label>
-              <input type="text" formControlName="songName" (keyup.enter)="addSong()">
-              <!--display error message if street is not valid-->
-              <small [hidden]="preferences.controls.songs.controls[i].controls.songName.valid">
-                Necesitamos por lo menos el título de la canción :)
-              </small>
+            <label class="col s12">Título</label>
+            <div class="col s12 valign-wrapper">
+              <span class="col s10">
+                <input type="text" formControlName="songName" (keyup.enter)="addSong()">
+              </span>
+              <span (click)="addSong()" class="col s2">Otra</span>
             </div>
           </div>
         </div>
       </div>
+      <div class="col s12 center">
+          <button type="submit" class="waves-effect waves-light btn-large">¡Listo!</button>
+      </div>
     </form>
-    <div class="col s12">
-      <p>{{preferences.value | json}}</p>
-    </div>
-    </div>
-    </div>
+  </div>
+</div>

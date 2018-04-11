@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../model/user';
 import { LoginService } from '../../services/login.service';
-import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-confirm',
@@ -47,5 +47,9 @@ export class ConfirmComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.loginService.user;
+  }
+
+  save(preferences: FormGroup) {
+    console.log(preferences);
   }
 }
