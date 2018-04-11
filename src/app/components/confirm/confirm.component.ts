@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../model/user';
 import { LoginService } from '../../services/login.service';
-import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  FormArray,
+  Validators
+} from '@angular/forms';
+import { UserPreferences } from '../../model/user-preferences';
+import { FirestoreUserService } from '../../services/firestore-user.service';
 
 @Component({
   selector: 'app-confirm',
@@ -12,8 +20,11 @@ export class ConfirmComponent implements OnInit {
   user: User = null;
   preferences: FormGroup = null;
 
-
-  constructor(private loginService: LoginService, private formBuilder: FormBuilder) {
+  constructor(
+    private loginService: LoginService,
+    private firestoreUserService: FirestoreUserService,
+    private formBuilder: FormBuilder
+  ) {
     this.createForm();
   }
 
@@ -23,9 +34,7 @@ export class ConfirmComponent implements OnInit {
       children: false,
       numberOfChildren: 0,
       specialNeeds: '',
-      songs: this.formBuilder.array([
-        this.initSong(),
-    ])
+      songs: this.formBuilder.array([this.initSong()])
     });
   }
 
@@ -36,12 +45,16 @@ export class ConfirmComponent implements OnInit {
   }
 
   addSong() {
-    const songControl: FormArray = <FormArray>this.preferences.controls['songs'];
+    const songControl: FormArray = <FormArray>this.preferences.controls[
+      'songs'
+    ];
     songControl.push(this.initSong());
   }
 
   removeSong(position: number) {
-    const songControl: FormArray = <FormArray>this.preferences.controls['songs'];
+    const songControl: FormArray = <FormArray>this.preferences.controls[
+      'songs'
+    ];
     songControl.removeAt(position);
   }
 
@@ -50,6 +63,13 @@ export class ConfirmComponent implements OnInit {
   }
 
   save(preferences: FormGroup) {
-    console.log(preferences);
+    const userPreferences: UserPreferences = new UserPreferences(
+      preferences.controls['accompanied'].value,
+      preferences.controls['numberOfChildren'].value,
+      preferences.controls['specialNeeds'].value
+    );
+    console.log(userPreferences);
+    this.user.preferences = userPreferences;
+    this.firestoreUserService.update(this.user).subscribe(user => this.user = user);
   }
 }

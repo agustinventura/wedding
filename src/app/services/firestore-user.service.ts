@@ -58,6 +58,7 @@ export class FirestoreUserService {
         name: user.name,
         email: user.email,
         phone: user.phone,
+        preferences: user.preferences
       })).concatMap(() => {
         return of(user);
       });
