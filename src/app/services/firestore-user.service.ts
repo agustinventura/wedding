@@ -15,6 +15,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { User } from '../model/user';
+import { UserPreferences } from '../model/user-preferences';
 
 @Injectable()
 export class FirestoreUserService {
@@ -44,7 +45,7 @@ export class FirestoreUserService {
         const firebaseUser = firebaseUsers[0].payload.doc.data();
         const id = firebaseUsers[0].payload.doc.id;
         console.log(id);
-        return of(new User(id, firebaseUser.name, firebaseUser.email, firebaseUser.phone));
+        return of(new User(id, firebaseUser.name, firebaseUser.email, firebaseUser.admin, firebaseUser.phone));
       } else {
         return Observable.throw('User ' + email + ' not registered');
       }
