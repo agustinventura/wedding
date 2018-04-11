@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../model/user';
 import { LoginService } from '../../services/login.service';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-confirm',
@@ -11,7 +11,6 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 export class ConfirmComponent implements OnInit {
   user: User = null;
   preferences: FormGroup = null;
-  children = [1, 2, 3, 4];
 
 
   constructor(private loginService: LoginService, private formBuilder: FormBuilder) {
@@ -24,7 +23,26 @@ export class ConfirmComponent implements OnInit {
       children: false,
       numberOfChildren: 0,
       specialNeeds: '',
+      songs: this.formBuilder.array([
+        this.initSong(),
+    ])
     });
+  }
+
+  initSong() {
+    return this.formBuilder.group({
+      songName: ''
+    });
+  }
+
+  addSong() {
+    const songControl: FormArray = <FormArray>this.preferences.controls['songs'];
+    songControl.push(this.initSong());
+  }
+
+  removeSong(position: number) {
+    const songControl: FormArray = <FormArray>this.preferences.controls['songs'];
+    songControl.removeAt(position);
   }
 
   ngOnInit() {
