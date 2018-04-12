@@ -24,19 +24,7 @@ export class ConfirmComponent implements OnInit {
     private loginService: LoginService,
     private firestoreUserService: FirestoreUserService,
     private formBuilder: FormBuilder
-  ) {
-    this.createForm();
-  }
-
-  createForm() {
-    this.preferences = this.formBuilder.group({
-      accompanied: false,
-      children: false,
-      numberOfChildren: 0,
-      specialNeeds: '',
-      songs: this.formBuilder.array([this.initSong()])
-    });
-  }
+  ) {}
 
   initSong() {
     return this.formBuilder.group({
@@ -60,6 +48,27 @@ export class ConfirmComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.loginService.user;
+    this.createForm(this.user.preferences);
+  }
+
+  createForm(userPreferences: UserPreferences) {
+    if (userPreferences) {
+      this.preferences = this.formBuilder.group({
+        accompanied: userPreferences.accompanied,
+        children: userPreferences.numberOfChildren > 0,
+        numberOfChildren: userPreferences.numberOfChildren,
+        specialNeeds: userPreferences.specialNeeds,
+        songs: this.formBuilder.array([this.initSong()])
+      });
+    } else {
+      this.preferences = this.formBuilder.group({
+        accompanied: false,
+        children: false,
+        numberOfChildren: 0,
+        specialNeeds: '',
+        songs: this.formBuilder.array([this.initSong()])
+      });
+    }
   }
 
   save(preferences: FormGroup) {
@@ -70,6 +79,8 @@ export class ConfirmComponent implements OnInit {
     );
     console.log(userPreferences);
     this.user.preferences = userPreferences;
-    this.firestoreUserService.update(this.user).subscribe(user => this.user = user);
+    this.firestoreUserService
+      .update(this.user)
+      .subscribe(user => (this.user = user));
   }
 }

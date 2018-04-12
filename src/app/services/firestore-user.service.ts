@@ -19,15 +19,16 @@ import { UserPreferences } from '../model/user-preferences';
 
 @Injectable()
 export class FirestoreUserService {
-
   constructor(private firestore: AngularFirestore) {}
 
   register(user: User): Observable<User> {
-    return fromPromise(this.firestore.collection('users').add({
-      name: user.name ? user.name : null,
-      email: user.email ? user.email : null,
-      phone: user.phone ? user.phone : null
-    })).concatMap(docReference => {
+    return fromPromise(
+      this.firestore.collection('users').add({
+        name: user.name ? user.name : null,
+        email: user.email ? user.email : null,
+        phone: user.phone ? user.phone : null
+      })
+    ).concatMap(docReference => {
       user.id = docReference.id;
       return of(user);
     });
@@ -45,7 +46,16 @@ export class FirestoreUserService {
         const firebaseUser = firebaseUsers[0].payload.doc.data();
         const id = firebaseUsers[0].payload.doc.id;
         console.log(id);
-        return of(new User(id, firebaseUser.name, firebaseUser.email, firebaseUser.admin, firebaseUser.phone));
+        return of(
+          new User(
+            id,
+            firebaseUser.name,
+            firebaseUser.email,
+            firebaseUser.admin,
+            firebaseUser.phone,
+            firebaseUser.preferences
+          )
+        );
       } else {
         return Observable.throw('User ' + email + ' not registered');
       }
@@ -54,12 +64,14 @@ export class FirestoreUserService {
 
   update(user: User): Observable<User> {
     if (user.id) {
-      fromPromise(this.firestore.doc('users/' + user.id).update({
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        preferences: user.preferences
-      })).concatMap(() => {
+      fromPromise(
+        this.firestore.doc('users/' + user.id).update({
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          preferences: user.preferences.toObject()
+        })
+      ).concatMap(() => {
         return of(user);
       });
     }

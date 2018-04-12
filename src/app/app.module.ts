@@ -26,6 +26,7 @@ import { AuthguardService } from './services/authguard.service';
 import { LoginService } from './services/login.service';
 import { LogoutComponent } from './components/logout/logout.component';
 import { UserComponent } from './components/user/user.component';
+import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UserComponent } from './components/user/user.component';
     ConfirmComponent,
     LoginComponent,
     LogoutComponent,
-    UserComponent
+    UserComponent,
+    AcknowledgeComponent
   ],
   imports: [
     BrowserModule,
