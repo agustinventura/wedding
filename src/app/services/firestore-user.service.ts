@@ -63,13 +63,17 @@ export class FirestoreUserService {
   }
 
   update(user: User): Observable<User> {
+    let userPreferences: Object = null;
+    if (user.preferences) {
+      userPreferences = user.preferences.toObject();
+    }
     if (user.id) {
       fromPromise(
         this.firestore.doc('users/' + user.id).update({
           name: user.name,
           email: user.email,
           phone: user.phone,
-          preferences: user.preferences.toObject()
+          preferences: userPreferences
         })
       ).concatMap(() => {
         return of(user);
