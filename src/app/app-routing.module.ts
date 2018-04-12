@@ -10,6 +10,7 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { UserComponent } from './components/user/user.component';
+import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'acknowledge',
+    component: AcknowledgeComponent,
     canActivate: [AuthguardService]
   },
   { path: 'login', component: LoginComponent },

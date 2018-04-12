@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { UserPreferences } from '../../model/user-preferences';
 import { FirestoreUserService } from '../../services/firestore-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm',
@@ -23,7 +24,8 @@ export class ConfirmComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private firestoreUserService: FirestoreUserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   initSong() {
@@ -72,15 +74,25 @@ export class ConfirmComponent implements OnInit {
   }
 
   save(preferences: FormGroup) {
+    console.log('saving preferences');
     const userPreferences: UserPreferences = new UserPreferences(
       preferences.controls['accompanied'].value,
       preferences.controls['numberOfChildren'].value,
       preferences.controls['specialNeeds'].value
     );
-    console.log(userPreferences);
+    if (!preferences.controls['children'].value && userPreferences.numberOfChildren > 0) {
+      userPreferences.numberOfChildren = 0;
+    }
     this.user.preferences = userPreferences;
+    console.log('preferences to be saved');
+    console.log(this.user);
     this.firestoreUserService
       .update(this.user)
-      .subscribe(user => (this.user = user));
+      .subscribe(user => {
+        if (user) {
+          this.loginService.user = user;
+          this.user = user;
+          this.router.navigate(['acknowledge']);
+        }});
   }
 }

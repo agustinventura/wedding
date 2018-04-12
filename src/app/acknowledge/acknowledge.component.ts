@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../model/user';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-acknowledge',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AcknowledgeComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
+    this.user = this.loginService.user;
   }
 
 }
