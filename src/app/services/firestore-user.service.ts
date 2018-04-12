@@ -26,6 +26,7 @@ export class FirestoreUserService {
       this.firestore.collection('users').add({
         name: user.name ? user.name : null,
         email: user.email ? user.email : null,
+        admin: false,
         phone: user.phone ? user.phone : null
       })
     ).concatMap(docReference => {
@@ -63,17 +64,14 @@ export class FirestoreUserService {
   }
 
   update(user: User): Observable<User> {
-    let userPreferences: Object = null;
-    if (user.preferences) {
-      userPreferences = user.preferences.toObject();
-    }
     if (user.id) {
       fromPromise(
         this.firestore.doc('users/' + user.id).update({
           name: user.name,
           email: user.email,
+          admin: user.admin,
           phone: user.phone,
-          preferences: userPreferences
+          preferences: user.preferences ? user.preferences.toObject() : null
         })
       ).concatMap(() => {
         return of(user);
