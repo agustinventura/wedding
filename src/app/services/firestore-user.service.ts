@@ -54,7 +54,11 @@ export class FirestoreUserService {
             firebaseUser.email,
             firebaseUser.admin,
             firebaseUser.phone,
-            firebaseUser.preferences
+            new UserPreferences(
+              firebaseUser.preferences ? firebaseUser.preferences.accompanied : false,
+              firebaseUser.preferences ? firebaseUser.preferences.numberOfChildren : 0,
+              firebaseUser.preferences ? firebaseUser.preferences.specialNeeds : ''
+            )
           )
         );
       } else {
