@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    this.loginService.login().subscribe(user => {
+    this.loginService.login().first().subscribe(user => {
       console.log('subscribe de googleLogin');
       if (user) {
         if (user.isComplete()) {
