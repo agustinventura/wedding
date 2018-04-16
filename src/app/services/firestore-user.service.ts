@@ -83,4 +83,8 @@ export class FirestoreUserService {
     }
     return of(user);
   }
+
+  getUserReference(id: string) {
+    return this.firestore.doc('users/' + id).ref;
+  }
 }

@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { FirebaseAuthenticationService } from "./firebase-authentication.service";
-import { FirebaseAuthorizationService } from "./firebase-authorization.service";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { FirebaseAuthenticationService } from './firebase-authentication.service';
+import { FirebaseAuthorizationService } from './firebase-authorization.service';
 
-import { User } from "../model/user";
+import { User } from '../model/user';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/concat';

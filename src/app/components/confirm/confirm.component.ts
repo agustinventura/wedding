@@ -11,6 +11,9 @@ import {
 import { UserPreferences } from '../../model/user-preferences';
 import { FirestoreUserService } from '../../services/firestore-user.service';
 import { Router } from '@angular/router';
+import { DocumentReference } from '@firebase/firestore-types';
+import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
+import { Song } from '../../model/song';
 
 @Component({
   selector: 'app-confirm',
@@ -25,7 +28,8 @@ export class ConfirmComponent implements OnInit {
     private loginService: LoginService,
     private firestoreUserService: FirestoreUserService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private firestore: AngularFirestore
   ) {}
 
   ngOnInit() {
@@ -78,8 +82,16 @@ export class ConfirmComponent implements OnInit {
         if (user) {
           this.loginService.user = user;
           this.user = user;
-          this.router.navigate(['acknowledge']);
         }
       });
-  }
+    const userReference: DocumentReference = this.firestoreUserService.getUserReference(this.user.id);
+    for (const song of this.preferences.get('songs').value) {
+      const newSong: Song = new Song(userReference, song.songName);
+      this.firestore.collection('songs').add({
+        user: newSong.user,
+        name: newSong.name
+      });
+    }
+    this.router.navigate(['acknowledge']);
+    }
 }
