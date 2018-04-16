@@ -28,10 +28,29 @@ export class ConfirmComponent implements OnInit {
     private router: Router
   ) {}
 
+  ngOnInit() {
+    this.user = this.loginService.user;
+    this.createForm(this.user.preferences);
+  }
+
+  createForm(userPreferences: UserPreferences) {
+    this.preferences = this.formBuilder.group({
+      accompanied: userPreferences.accompanied,
+      children: userPreferences.numberOfChildren > 0,
+      numberOfChildren: userPreferences.numberOfChildren,
+      specialNeeds: userPreferences.specialNeeds,
+      songs: this.formBuilder.array([this.initSong()])
+    });
+  }
+
   initSong() {
     return this.formBuilder.group({
       songName: ''
     });
+  }
+
+  resetNumberOfChildren() {
+    this.preferences.get('numberOfChildren').setValue(0);
   }
 
   addSong() {
@@ -48,51 +67,19 @@ export class ConfirmComponent implements OnInit {
     songControl.removeAt(position);
   }
 
-  ngOnInit() {
-    this.user = this.loginService.user;
-    this.createForm(this.user.preferences);
-  }
-
-  createForm(userPreferences: UserPreferences) {
-    if (userPreferences) {
-      this.preferences = this.formBuilder.group({
-        accompanied: userPreferences.accompanied,
-        children: userPreferences.numberOfChildren > 0,
-        numberOfChildren: userPreferences.numberOfChildren,
-        specialNeeds: userPreferences.specialNeeds,
-        songs: this.formBuilder.array([this.initSong()])
-      });
-    } else {
-      this.preferences = this.formBuilder.group({
-        accompanied: false,
-        children: false,
-        numberOfChildren: 0,
-        specialNeeds: '',
-        songs: this.formBuilder.array([this.initSong()])
-      });
-    }
-  }
-
   save(preferences: FormGroup) {
-    console.log('saving preferences');
-    const userPreferences: UserPreferences = new UserPreferences(
-      preferences.controls['accompanied'].value,
-      preferences.controls['numberOfChildren'].value,
-      preferences.controls['specialNeeds'].value
-    );
-    if (!preferences.controls['children'].value && userPreferences.numberOfChildren > 0) {
-      userPreferences.numberOfChildren = 0;
-    }
-    this.user.preferences = userPreferences;
-    console.log('preferences to be saved');
-    console.log(this.user);
+    this.user.preferences.accompanied = this.preferences.get('accompanied').value;
+    this.user.preferences.numberOfChildren = this.preferences.get('numberOfChildren').value;
+    this.user.preferences.specialNeeds = this.preferences.get('specialNeeds').value;
     this.firestoreUserService
       .update(this.user)
+      .first()
       .subscribe(user => {
         if (user) {
           this.loginService.user = user;
           this.user = user;
           this.router.navigate(['acknowledge']);
-        }});
+        }
+      });
   }
 }

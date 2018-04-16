@@ -39,7 +39,7 @@
         <div class="col s6 switch">
           <label>
             No
-            <input type="checkbox" formControlName="children">
+            <input type="checkbox" formControlName="children" (click)="resetNumberOfChildren()">
             <span class="lever"></span>
             Si
           </label>
@@ -80,7 +80,7 @@
       <div formArrayName="songs">
         <div class="row">
           <p class="col s12">
-            Pues por último nos gustaría saber que música te gustaría escuchar en nuestra boda, que canciones crees que nos pegan o te
+            Por último nos gustaría saber que música te gustaría escuchar en nuestra boda, que canciones crees que nos pegan o te
             molaría escuchar.
           </p>
         </div>
