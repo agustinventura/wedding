@@ -28,6 +28,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { UserComponent } from './components/user/user.component';
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 import { ConfirmService } from './services/confirm.service';
+import { FirestoreSongService } from './services/firestore-song.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { ConfirmService } from './services/confirm.service';
     FirebaseAuthorizationService,
     LoginService,
     FirestoreUserService,
+    FirestoreSongService,
     ConfirmService
   ],
   bootstrap: [AppComponent]

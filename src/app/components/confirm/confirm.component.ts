@@ -12,8 +12,13 @@ import { UserPreferences } from '../../model/user-preferences';
 import { FirestoreUserService } from '../../services/firestore-user.service';
 import { Router } from '@angular/router';
 import { DocumentReference } from '@firebase/firestore-types';
-import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
+import {
+  AngularFirestoreDocument,
+  AngularFirestore
+} from 'angularfire2/firestore';
 import { Song } from '../../model/song';
+import { FirestoreSongService } from '../../services/firestore-song.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-confirm',
@@ -23,18 +28,33 @@ import { Song } from '../../model/song';
 export class ConfirmComponent implements OnInit {
   user: User = null;
   preferences: FormGroup = null;
+  songsSubscription: Subscription = null;
 
   constructor(
     private loginService: LoginService,
     private firestoreUserService: FirestoreUserService,
+    private firestoreSongService: FirestoreSongService,
     private formBuilder: FormBuilder,
-    private router: Router,
-    private firestore: AngularFirestore
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.user = this.loginService.user;
     this.createForm(this.user.preferences);
+    this.songsSubscription = this.firestoreSongService
+      .getUserSongs(this.user)
+      .subscribe(song => {
+        const songControl: FormArray = <FormArray>this.preferences.controls[
+          'songs'
+        ];
+        const songGroup = this.formBuilder.group({
+          songName: song.name
+        });
+        if (!songControl.controls.includes(songGroup)) {
+          songControl.insert(songControl.length - 1, songGroup);
+        }
+      });
+    this.addSong();
   }
 
   createForm(userPreferences: UserPreferences) {
@@ -43,7 +63,7 @@ export class ConfirmComponent implements OnInit {
       children: userPreferences.numberOfChildren > 0,
       numberOfChildren: userPreferences.numberOfChildren,
       specialNeeds: userPreferences.specialNeeds,
-      songs: this.formBuilder.array([this.initSong()])
+      songs: this.formBuilder.array([])
     });
   }
 
@@ -72,9 +92,15 @@ export class ConfirmComponent implements OnInit {
   }
 
   save(preferences: FormGroup) {
-    this.user.preferences.accompanied = this.preferences.get('accompanied').value;
-    this.user.preferences.numberOfChildren = this.preferences.get('numberOfChildren').value;
-    this.user.preferences.specialNeeds = this.preferences.get('specialNeeds').value;
+    this.user.preferences.accompanied = this.preferences.get(
+      'accompanied'
+    ).value;
+    this.user.preferences.numberOfChildren = this.preferences.get(
+      'numberOfChildren'
+    ).value;
+    this.user.preferences.specialNeeds = this.preferences.get(
+      'specialNeeds'
+    ).value;
     this.firestoreUserService
       .update(this.user)
       .first()
@@ -84,14 +110,14 @@ export class ConfirmComponent implements OnInit {
           this.user = user;
         }
       });
-    const userReference: DocumentReference = this.firestoreUserService.getUserReference(this.user.id);
+    this.firestoreSongService.deleteUserSongs(this.user);
     for (const song of this.preferences.get('songs').value) {
-      const newSong: Song = new Song(userReference, song.songName);
-      this.firestore.collection('songs').add({
-        user: newSong.user,
-        name: newSong.name
-      });
+      if (song.songName.length > 0) {
+        const newSong: Song = new Song(this.user.email, song.songName);
+        this.firestoreSongService.add(newSong);
+      }
     }
+    this.songsSubscription.unsubscribe();
     this.router.navigate(['acknowledge']);
-    }
+  }
 }
