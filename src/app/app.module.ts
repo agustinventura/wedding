@@ -29,6 +29,7 @@ import { UserComponent } from './components/user/user.component';
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 import { ConfirmService } from './services/confirm.service';
 import { FirestoreSongService } from './services/firestore-song.service';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { FirestoreSongService } from './services/firestore-song.service';
     LoginComponent,
     LogoutComponent,
     UserComponent,
-    AcknowledgeComponent
+    AcknowledgeComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

@@ -27,11 +27,12 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = this.loginService.user;
     this.menuItems = [
-      { name: 'Dónde', route: '/where' },
-      { name: 'Vestuario', route: '/dresscode' },
-      { name: 'Regalo', route: '/gift' },
-      { name: 'Me apunto', route: '/confirm' }
+      { name: 'Dónde', route: '/where'},
+      { name: 'Vestuario', route: '/dresscode'},
+      { name: 'Regalo', route: '/gift'},
+      { name: 'Me apunto', route: '/confirm'},
     ];
   }
 

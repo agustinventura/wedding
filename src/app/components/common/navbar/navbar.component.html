@@ -11,6 +11,9 @@
       <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
         <a [routerLink]="menuItem.route">{{ menuItem.name | uppercase }}</a>
       </li>
+      <li *ngIf="isLoggedIn() && user.admin">
+        <a routerLink="admin">ADMIN</a>
+      </li>
       <li *ngIf="isLoggedIn()">
         <a class="waves-effect waves-light btn" (click)="logout()">Salir</a>
       </li>

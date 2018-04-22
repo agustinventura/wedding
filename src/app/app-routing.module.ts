@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { UserComponent } from './components/user/user.component';
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
+import { AdminComponent } from './components/admin/admin.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     path: 'acknowledge',
     component: AcknowledgeComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
     canActivate: [AuthguardService]
   },
   { path: 'login', component: LoginComponent },
