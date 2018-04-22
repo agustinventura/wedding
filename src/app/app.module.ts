@@ -27,9 +27,10 @@ import { LoginService } from './services/login.service';
 import { LogoutComponent } from './components/logout/logout.component';
 import { UserComponent } from './components/user/user.component';
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
-import { ConfirmService } from './services/confirm.service';
 import { FirestoreSongService } from './services/firestore-song.service';
 import { AdminComponent } from './components/admin/admin.component';
+import { PhoneLoginComponent } from './components/phone-login/phone-login.component';
+import { WindowService } from './services/window.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AdminComponent } from './components/admin/admin.component';
     LogoutComponent,
     UserComponent,
     AcknowledgeComponent,
-    AdminComponent
+    AdminComponent,
+    PhoneLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,7 @@ import { AdminComponent } from './components/admin/admin.component';
     LoginService,
     FirestoreUserService,
     FirestoreSongService,
-    ConfirmService
+    WindowService
   ],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
+
   }
 
   googleLogin() {
@@ -28,5 +29,9 @@ export class LoginComponent implements OnInit {
         console.log('uops');
       }
     });
+  }
+
+  phoneLogin() {
+    this.router.navigate(['phone-login']);
   }
 }

@@ -1,0 +1,33 @@
+<div>
+
+  <h1>Sign In with Your Phone Number</h1>
+
+  <label for="phone">Phone Number</label><br>
+  <input type="text" [(ngModel)]="phoneNumber"  class="input" placeholder="666666666"    maxlength="12">
+
+  <hr>
+
+  <div id="recaptcha-container"></div>
+
+  <hr>
+
+  <button class="button is-info" (click)="sendLoginCode()">SMS Text Login Code</button>
+
+  <div *ngIf="windowRef.confirmationResult">
+    <hr>
+    <label for="code">Enter your Verification Code Here</label><br>
+    <input type="text" name="code" [(ngModel)]="verificationCode" class="input">
+
+    <button class="button is-success" (click)="verifyLoginCode()">Verify</button>
+  </div>
+
+</div>
+
+
+<div *ngIf="user">
+
+  <div class="notification is-success">You have successfully logged in with your phone number!</div>
+
+  UserId: {{ user?.uid }}
+
+</div>

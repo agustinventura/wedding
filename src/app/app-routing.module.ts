@@ -12,6 +12,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { UserComponent } from './components/user/user.component';
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { PhoneLoginComponent } from './components/phone-login/phone-login.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
     canActivate: [AuthguardService]
   },
   { path: 'login', component: LoginComponent },
+  { path: 'phone-login', component: PhoneLoginComponent },
   { path: 'logout/:name', component: LogoutComponent },
   { path: '**', redirectTo: '' }
 ];
