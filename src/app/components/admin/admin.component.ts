@@ -10,7 +10,7 @@ import { User } from '../../model/user';
 })
 export class AdminComponent implements OnInit {
 
-  users: Observable<User> = null;
+  users: Observable<User[]> = null;
 
   constructor(private firestoreUserService: FirestoreUserService) { }
 

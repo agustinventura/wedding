@@ -35,17 +35,17 @@ export class FirestoreUserService {
     });
   }
 
-  getUsers(): Observable<User> {
+  getUsers(): Observable<User[]> {
     console.log('getUsers');
-    const usersCol = this.firestore.collection('users');
-    const users = usersCol.snapshotChanges();
-    return users.concatMap(firebaseUsers => {
+    const usersCol = this.firestore.collection('users').snapshotChanges();
+    return usersCol.concatMap(firebaseUsers => {
       console.log('concatMap de getUsers');
-      if (firebaseUsers.length > 0) {
-        const firebaseUser = firebaseUsers[0].payload.doc.data();
-        const id = firebaseUsers[0].payload.doc.id;
+      const users: User[] = [];
+      for (const firebaseUserSnapshot of firebaseUsers) {
+        const firebaseUser = firebaseUserSnapshot.payload.doc.data();
+        const id = firebaseUserSnapshot.payload.doc.id;
         console.log('building user ' + firebaseUser.name);
-        return of(
+        users.push(
           new User(
             id,
             firebaseUser.name,
@@ -60,6 +60,7 @@ export class FirestoreUserService {
           )
         );
       }
+      return of(users);
     });
   }
 

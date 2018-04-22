@@ -32,7 +32,7 @@
         <a [routerLink]="menuItem.route" class="white-text" (click)="close()">{{ menuItem.name | uppercase }}</a>
       </li>
       <li *ngIf="isLoggedIn() && user.admin">
-        <a routerLink="admin">ADMIN</a>
+        <a routerLink="admin" class="white-text" (click)="close()">ADMIN</a>
       </li>
       <div class="divider">
 
