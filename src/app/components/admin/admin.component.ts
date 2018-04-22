@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestoreUserService } from '../../services/firestore-user.service';
+import { Observable } from 'rxjs/Observable';
+import { User } from '../../model/user';
 
 @Component({
   selector: 'app-admin',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  users: Observable<User> = null;
+
+  constructor(private firestoreUserService: FirestoreUserService) { }
 
   ngOnInit() {
+    this.users = this.firestoreUserService.getUsers();
   }
 
 }

@@ -31,6 +31,9 @@
       <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
         <a [routerLink]="menuItem.route" class="white-text" (click)="close()">{{ menuItem.name | uppercase }}</a>
       </li>
+      <li *ngIf="isLoggedIn() && user.admin">
+        <a routerLink="admin">ADMIN</a>
+      </li>
       <div class="divider">
 
       </div>

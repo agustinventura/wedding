@@ -1,3 +1,30 @@
-<p>
-  admin works!
-</p>
+<div class="container">
+  <h1>Users</h1>
+<table class="stripped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>¿Acompañado?</th>
+      <th>Niños</th>
+      <th>Comentarios</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users | async">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.phone}}</td>
+      <td>{{user.preferences.accompanied}}</td>
+      <td>{{user.preferences.numberOfChildren}}</td>
+      <td>{{user.preferences.specialNeeds}}</td>
+      <td>
+        <a [routerLink]="['/edit', user.id]">
+          <i class="fas fa-edit"></i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>>

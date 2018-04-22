@@ -35,6 +35,34 @@ export class FirestoreUserService {
     });
   }
 
+  getUsers(): Observable<User> {
+    console.log('getUsers');
+    const usersCol = this.firestore.collection('users');
+    const users = usersCol.snapshotChanges();
+    return users.concatMap(firebaseUsers => {
+      console.log('concatMap de getUsers');
+      if (firebaseUsers.length > 0) {
+        const firebaseUser = firebaseUsers[0].payload.doc.data();
+        const id = firebaseUsers[0].payload.doc.id;
+        console.log('building user ' + firebaseUser.name);
+        return of(
+          new User(
+            id,
+            firebaseUser.name,
+            firebaseUser.email,
+            firebaseUser.admin,
+            firebaseUser.phone,
+            new UserPreferences(
+              firebaseUser.preferences ? firebaseUser.preferences.accompanied : false,
+              firebaseUser.preferences ? firebaseUser.preferences.numberOfChildren : 0,
+              firebaseUser.preferences ? firebaseUser.preferences.specialNeeds : ''
+            )
+          )
+        );
+      }
+    });
+  }
+
   getUserByEmail(email: string): Observable<User> {
     console.log('getUserByEmail');
     const usersCol = this.firestore.collection('users', ref =>
