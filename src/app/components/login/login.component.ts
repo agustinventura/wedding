@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  phoneLogin() {
-    this.router.navigate(['phone-login']);
+  emailLogin() {
+    this.router.navigate(['email-login']);
   }
 }

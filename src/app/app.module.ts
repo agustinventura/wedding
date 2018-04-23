@@ -26,11 +26,11 @@ import { AuthguardService } from './services/authguard.service';
 import { LoginService } from './services/login.service';
 import { LogoutComponent } from './components/logout/logout.component';
 import { UserComponent } from './components/user/user.component';
-import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
+import { AcknowledgeComponent } from './components/acknowledge/acknowledge.component';
 import { FirestoreSongService } from './services/firestore-song.service';
 import { AdminComponent } from './components/admin/admin.component';
-import { PhoneLoginComponent } from './components/phone-login/phone-login.component';
 import { WindowService } from './services/window.service';
+import { EmailLoginComponent } from './components/email-login/email-login.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { WindowService } from './services/window.service';
     UserComponent,
     AcknowledgeComponent,
     AdminComponent,
-    PhoneLoginComponent
+    EmailLoginComponent
   ],
   imports: [
     BrowserModule,

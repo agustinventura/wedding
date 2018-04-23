@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../model/user';
-import { LoginService } from '../services/login.service';
+import { User } from '../../model/user';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-acknowledge',
