@@ -41,7 +41,7 @@ const routes: Routes = [
     canActivate: [AuthguardService]
   },
   { path: 'login', component: LoginComponent },
-  { path: 'email-login', component: EmailLoginComponent }
+  { path: 'email-login', component: EmailLoginComponent },
   { path: 'logout/:name', component: LogoutComponent },
   { path: '**', redirectTo: '' }
 ];
