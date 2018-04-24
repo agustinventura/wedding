@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseAuthenticationService } from '../../services/firebase-authentication.service';
 
 @Component({
   selector: 'app-email-login',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmailLoginComponent implements OnInit {
 
-  constructor() { }
+  email = '';
+  password = '';
+
+  constructor(private authenticationService: FirebaseAuthenticationService) { }
 
   ngOnInit() {
   }

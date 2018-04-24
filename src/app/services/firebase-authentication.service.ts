@@ -6,6 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/first';
+import { fromPromise } from 'rxjs/observable/fromPromise';
 
 import { User } from '../model/user';
 
@@ -35,11 +36,19 @@ export class FirebaseAuthenticationService {
   }
 
   private newLogIn() {
-    this.firebaseAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    this.firebaseAuth.auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    );
   }
 
   googleLogout() {
     this.user = null;
     return this.firebaseAuth.auth.signOut();
+  }
+
+  emailPasswordLogin(email: string, password: string) {
+    fromPromise(
+      this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+    ).subscribe(something => console.log(something));
   }
 }
