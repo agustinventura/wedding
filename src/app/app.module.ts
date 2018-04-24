@@ -7,6 +7,7 @@ import { MaterializeModule } from 'angular2-materialize';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
+import { AgmCoreModule } from '@agm/core';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -59,7 +60,10 @@ import { EmailLoginComponent } from './components/email-login/email-login.compon
     ),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBuMpweBfYNw9aR3SWTzEX770d945GnFE0'
+    })
   ],
   providers: [
     FirebaseAuthenticationService,

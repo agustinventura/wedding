@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-where',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WhereComponent implements OnInit {
 
-  constructor() { }
+  lat = 37.38161;
+  lng = -5.997959;
+
+  constructor() {}
 
   ngOnInit() {
-  }
 
+  }
 }
