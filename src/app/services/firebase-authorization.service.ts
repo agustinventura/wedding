@@ -21,19 +21,16 @@ export class FirebaseAuthorizationService {
   constructor(private firestoreUserService: FirestoreUserService) {}
 
   authorize(user: User) {
-    console.log('authorize');
     let fsUser: Observable<User> = Observable.empty<User>();
     if (user) {
       if (user.email) {
         fsUser = this.firestoreUserService
           .getUserByEmail(user.email)
           .concatMap(storedUser => {
-            console.log('concatMap de authorize');
             if (storedUser) {
               return of(storedUser);
             }
           }).catch(err => {
-            console.log('catch de authorize');
             return this.firestoreUserService.register(user);
           });
       }

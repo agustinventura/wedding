@@ -27,7 +27,6 @@ export class LoginService {
   }
 
   private firebaseLogin() {
-    console.log('firebaseLogin');
     if (!this.user) {
       return this.firebaseAuthenticationService.googleLogin().first();
     }
@@ -40,16 +39,13 @@ export class LoginService {
   }
 
   login() {
-    console.log('login');
     this.authentication = this.firebaseLogin()
       .first()
       .concatMap(authenticatedUser =>
         this.firebaseAuthorizationService
           .authorize(authenticatedUser)
           .concatMap(authorizedUser => {
-            console.log('concatMap de login');
             if (authorizedUser) {
-              console.log(authorizedUser);
               this.user = authorizedUser;
             }
             return of(this.user);

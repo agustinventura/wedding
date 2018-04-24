@@ -7,8 +7,12 @@ export class User {
     public email: string,
     public admin: boolean,
     public phone?: string,
-    public preferences?: UserPreferences,
-  ) {}
+    public preferences?: UserPreferences
+  ) {
+    if (!preferences) {
+      this.preferences = new UserPreferences(false, 0, '');
+    }
+  }
 
   isComplete() {
     return this.name && this.email && this.phone;

@@ -21,7 +21,6 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.loginService.user;
-    console.log(this.user);
   }
 
   submit() {

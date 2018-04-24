@@ -27,7 +27,8 @@ export class FirestoreUserService {
         name: user.name ? user.name : null,
         email: user.email ? user.email : null,
         admin: false,
-        phone: user.phone ? user.phone : null
+        phone: user.phone ? user.phone : null,
+        preferences: user.preferences.toObject()
       })
     ).concatMap(docReference => {
       user.id = docReference.id;
@@ -36,15 +37,12 @@ export class FirestoreUserService {
   }
 
   getUsers(): Observable<User[]> {
-    console.log('getUsers');
     const usersCol = this.firestore.collection('users').snapshotChanges();
     return usersCol.concatMap(firebaseUsers => {
-      console.log('concatMap de getUsers');
       const users: User[] = [];
       for (const firebaseUserSnapshot of firebaseUsers) {
         const firebaseUser = firebaseUserSnapshot.payload.doc.data();
         const id = firebaseUserSnapshot.payload.doc.id;
-        console.log('building user ' + firebaseUser.name);
         users.push(
           new User(
             id,
@@ -65,17 +63,14 @@ export class FirestoreUserService {
   }
 
   getUserByEmail(email: string): Observable<User> {
-    console.log('getUserByEmail');
     const usersCol = this.firestore.collection('users', ref =>
       ref.where('email', '==', email)
     );
     const users = usersCol.snapshotChanges();
     return users.concatMap(firebaseUsers => {
-      console.log('concat de getUserByEmail');
       if (firebaseUsers.length > 0) {
         const firebaseUser = firebaseUsers[0].payload.doc.data();
         const id = firebaseUsers[0].payload.doc.id;
-        console.log(id);
         return of(
           new User(
             id,
@@ -104,7 +99,11 @@ export class FirestoreUserService {
           email: user.email,
           admin: user.admin,
           phone: user.phone,
-          preferences: user.preferences ? user.preferences.toObject() : null
+          preferences: user.preferences ? user.preferences.toObject() : new UserPreferences(
+            false,
+            0,
+            ''
+          ).toObject()
         })
       ).concatMap(() => {
         return of(user);
