@@ -1,3 +1,25 @@
-<p>
-  email-login works!
-</p>
+<div class="container">
+  <div class="row">
+    <p class="col s12">
+      Introduce tu email y tu contraseña, ¡gracias!
+    </p>
+  </div>
+  <div class="row">
+    <form class="col s12" (ngSubmit)="submit()" #userForm="ngForm">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">mail</i>
+        <input id="mail" type="email" placeholder="mi@email.com" class="validate" [(ngModel)]="email" name="email" required>
+        <label for="icon_mail" class="active">Email</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">contraseña</i>
+        <input id="password" type="password" class="validate" [(ngModel)]="password" name="password" required>
+        <label for="icon_password" class="active">Email</label>
+      </div>
+      <div class="col s12 center">
+          <button type="submit" class="waves-effect waves-light btn-large"
+          [disabled]="!userForm.form.valid">Ya esta</button>
+      </div>
+    </form>
+  </div>
+</div>
