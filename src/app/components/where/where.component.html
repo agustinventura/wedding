@@ -1,29 +1,25 @@
-<div class="small-section white valign-wrapper">
-  <div class="row container center-align">
-    <h1>Triana</h1>
-  </div>
-</div>
-<div class="small-section white valign-wrapper">
+<div class="main-container">
+<section class="valign-wrapper">
   <div class="row center-align">
-    <p class="grey-text text-darken-3 lighten-3 section-paragraph">
+    <p class="section-paragraph grey-text text-darken-3">
       Nos conocimos en Málaga y dimos nuestros primeros paseos por la orilla del río.
     </p>
   </div>
-</div>
+</section>
 <div class="parallax-container">
   <div class="valign-wrapper h100">
-    <div class="parallax grey lighten-1" materialize="parallax">
+    <div materialize="parallax">
       <img src="assets/img/abades-mesa.jpg">
     </div>
   </div>
 </div>
-<div class="small-section valign-wrapper">
+<section class="valign-wrapper">
   <div class="row center-align">
-    <p class="grey-text text-darken-3 lighten-3 section-paragraph">
+    <p class="grey-text text-darken-3 section-paragraph">
       Por eso nos gustaría que nos acompañáseis a este sitio que significa tanto para nosotros
     </p>
   </div>
-</div>
+</section>
 <div class="parallax-container">
   <div class="valign-wrapper h100">
     <div class="parallax grey lighten-1" materialize="parallax">
@@ -31,12 +27,12 @@
     </div>
   </div>
 </div>
-<div class="section white valign-wrapper">
+<section class="valign-wrapper">
   <div class="row container center-align">
-    <br />
     <p class="grey-text text-darken-3 section-paragraph">Os esperamos en el Restaurante Abades Triana</p>
   </div>
-</div>
+</section>
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="18">
   <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 </agm-map>
+</div>

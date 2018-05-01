@@ -26,7 +26,7 @@ export class FirebaseAuthenticationService {
       this.newLogIn();
       return this.firebaseUser.concatMap(user => {
         if (user) {
-          this.user = new User('', user.displayName, user.email, false);
+          this.user = new User('', user.displayName, user.email, false, true);
           return of(this.user);
         } else {
           return Observable.empty<User>();

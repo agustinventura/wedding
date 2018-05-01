@@ -13,6 +13,7 @@ import { UserComponent } from './components/user/user.component';
 import { AcknowledgeComponent } from './components/acknowledge/acknowledge.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { EmailLoginComponent } from './components/email-login/email-login.component';
+import { UserDisabledComponent } from './components/user-disabled/user-disabled.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -42,6 +43,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'email-login', component: EmailLoginComponent },
+  { path: 'user-disabled', component: UserDisabledComponent },
   { path: 'logout/:name', component: LogoutComponent },
   { path: '**', redirectTo: '' }
 ];

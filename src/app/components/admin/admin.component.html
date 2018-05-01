@@ -1,6 +1,6 @@
 <div class="container">
   <h5>Han confirmado</h5>
-<table class="stripped responsive-table">
+<table class="striped responsive-table">
   <thead>
     <tr>
       <th>Nombre</th>
@@ -9,6 +9,7 @@
       <th>¿Acompañado?</th>
       <th>Niños</th>
       <th>Comentarios</th>
+      <th>¿Habilitado?</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,7 @@
       <td>{{user.preferences.accompanied}}</td>
       <td>{{user.preferences.numberOfChildren}}</td>
       <td>{{user.preferences.specialNeeds}}</td>
+      <td>{{user.enabled}}</td>
       <td>
         <a [routerLink]="['/edit', user.id]">
           <i class="fas fa-edit"></i>

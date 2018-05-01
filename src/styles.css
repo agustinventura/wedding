@@ -3,75 +3,24 @@ html {
   font-family: "Lato", sans-serif !important;
 }
 
-.parallax-container {
-  height: 650px !important;
+.main-container {
+  padding-left: 3em;
+  padding-right: 3em;
 }
 
-.h100 {
-  height: 100%;
+section {
+  height: 300px;
 }
 
-.header {
-  font-family: "Lato", sans-serif;
-  font-size: 1em;
-  font-style: italic;
-  font-weight: bold;
-  margin: 10px;
-  text-rendering: optimizeLegibility;
+.small {
+  height: 100px;
 }
 
-.overlay,
-.parallax-text {
-  font-family: "Lato", sans-serif;
-  letter-spacing: 0.11em;
-  font-size: 2.25em;
-  text-rendering: optimizeLegibility;
-}
-
-@media (min-width: 993px) {
-  .parallax-container {
-    height: 900px;
-  }
-  .overlay,
-  .parallax-text {
-    font-family: "Lato", sans-serif;
-    letter-spacing: 0.11em;
-    font-size: 7em;
-    text-rendering: optimizeLegibility;
-  }
-
-  .header {
-    font-family: "Lato", sans-serif;
-    font-size: 2.25em;
-    font-style: italic;
-    font-weight: bold;
-    margin: 10px;
-    text-rendering: optimizeLegibility;
-  }
-}
-
-.overlay {
+.w100 {
   width: 100%;
 }
 
-.section {
-  height: 400px;
-}
-
-.small-section {
-  height: 200px;
-}
-
 .section-paragraph {
-  font-size: 1.6em;
-}
-
-.story-header {
-  font-family: "Lato", sans-serif;
-  font-size: 28px;
-}
-
-p {
-  font-family: "Fira Sans", sans-serif;
-  font-size: 16px;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 22px;
 }

@@ -19,7 +19,7 @@ export class LoginService {
   ) {}
 
   isLogged() {
-    if (this.user) {
+    if (this.user && this.user.enabled) {
       return true;
     } else {
       return false;

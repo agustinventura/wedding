@@ -10,7 +10,12 @@ export class AuthguardService implements CanActivate {
 
   canActivate() {
     if (this.loginService.user) {
-      return true;
+      if (this.loginService.user.enabled) {
+        return true;
+      } else {
+        this.router.navigate(['user-disabled']);
+        return false;
+      }
     } else {
       this.router.navigate(['login']);
       return false;

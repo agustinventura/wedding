@@ -32,6 +32,7 @@ import { FirestoreSongService } from './services/firestore-song.service';
 import { AdminComponent } from './components/admin/admin.component';
 import { WindowService } from './services/window.service';
 import { EmailLoginComponent } from './components/email-login/email-login.component';
+import { UserDisabledComponent } from './components/user-disabled/user-disabled.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { EmailLoginComponent } from './components/email-login/email-login.compon
     UserComponent,
     AcknowledgeComponent,
     AdminComponent,
-    EmailLoginComponent
+    EmailLoginComponent,
+    UserDisabledComponent
   ],
   imports: [
     BrowserModule,

@@ -20,10 +20,14 @@ export class LoginComponent implements OnInit {
     this.loginService.login().first().subscribe(user => {
       if (user) {
         this.loginService.user = user;
-        if (user.isComplete()) {
-          this.router.navigate(['confirm']);
+        if (user.enabled) {
+          if (user.isComplete()) {
+            this.router.navigate(['confirm']);
+          } else {
+            this.router.navigate(['user']);
+          }
         } else {
-          this.router.navigate(['user']);
+          this.router.navigate(['user-disabled']);
         }
       }
     });

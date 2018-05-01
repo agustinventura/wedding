@@ -27,6 +27,7 @@ export class FirestoreUserService {
         name: user.name ? user.name : null,
         email: user.email ? user.email : null,
         admin: false,
+        enabled: true,
         phone: user.phone ? user.phone : null,
         preferences: user.preferences.toObject()
       })
@@ -49,6 +50,7 @@ export class FirestoreUserService {
             firebaseUser.name,
             firebaseUser.email,
             firebaseUser.admin,
+            firebaseUser.enabled,
             firebaseUser.phone,
             new UserPreferences(
               firebaseUser.preferences ? firebaseUser.preferences.accompanied : false,
@@ -77,6 +79,7 @@ export class FirestoreUserService {
             firebaseUser.name,
             firebaseUser.email,
             firebaseUser.admin,
+            firebaseUser.enabled,
             firebaseUser.phone,
             new UserPreferences(
               firebaseUser.preferences ? firebaseUser.preferences.accompanied : false,
@@ -98,6 +101,7 @@ export class FirestoreUserService {
           name: user.name,
           email: user.email,
           admin: user.admin,
+          enabled: user.enabled,
           phone: user.phone,
           preferences: user.preferences ? user.preferences.toObject() : new UserPreferences(
             false,
