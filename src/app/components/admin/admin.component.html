@@ -1,32 +1,33 @@
 <div class="container">
   <h5>Han confirmado</h5>
-<table class="striped responsive-table">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Email</th>
-      <th>Teléfono</th>
-      <th>¿Acompañado?</th>
-      <th>Niños</th>
-      <th>Comentarios</th>
-      <th>¿Habilitado?</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users | async">
-      <td>{{user.name}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.phone}}</td>
-      <td>{{user.preferences.accompanied}}</td>
-      <td>{{user.preferences.numberOfChildren}}</td>
-      <td>{{user.preferences.specialNeeds}}</td>
-      <td>{{user.enabled}}</td>
-      <td>
-        <a [routerLink]="['/edit', user.id]">
-          <i class="fas fa-edit"></i>
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="striped responsive-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>¿Acompañado?</th>
+        <th>Niños</th>
+        <th>Comentarios</th>
+        <th>¿Administrador?</th>
+        <th>¿Habilitado?</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users | async">
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.preferences.accompanied}}</td>
+        <td>{{user.preferences.numberOfChildren}}</td>
+        <td>{{user.preferences.specialNeeds}}</td>
+        <td>{{user.admin}}</td>
+        <td>{{user.enabled}}</td>
+        <td>
+          <i class="material-icons prefix">create</i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
