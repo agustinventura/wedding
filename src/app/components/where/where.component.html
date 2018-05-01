@@ -8,43 +8,35 @@
     <p class="grey-text text-darken-3 lighten-3 section-paragraph">
       Nos conocimos en Málaga y dimos nuestros primeros paseos por la orilla del río.
     </p>
-    <p class="grey-text text-darken-3 lighten-3 section-paragraph">
-      Por eso nos gustaría que nos acompañáseis a este
-      sitio que significa tanto para nosotros
-    </p>
-    <p class="grey-text text-darken-3 lighten-3 section-paragraph">
-        Y pasemos juntos un día de otoño
-      </p>
   </div>
 </div>
 <div class="parallax-container">
   <div class="valign-wrapper h100">
-    <h1 class=" white-text overlay center-align">
-      desde el mediodía
-    </h1>
     <div class="parallax grey lighten-1" materialize="parallax">
-      <img src="assets/img/abades-mesa.jpg" class="responsive-img">
+      <img src="assets/img/abades-mesa.jpg">
     </div>
   </div>
 </div>
-<div class="small-section white valign-wrapper">
+<div class="small-section valign-wrapper">
+  <div class="row center-align">
+    <p class="grey-text text-darken-3 lighten-3 section-paragraph">
+      Por eso nos gustaría que nos acompañáseis a este sitio que significa tanto para nosotros
+    </p>
+  </div>
 </div>
 <div class="parallax-container">
   <div class="valign-wrapper h100">
-    <p class="white-text left-align header">
-      hasta la noche
-    </p>
     <div class="parallax grey lighten-1" materialize="parallax">
       <img src="assets/img/abades-noche.jpg">
     </div>
   </div>
 </div>
 <div class="section white valign-wrapper">
-    <div class="row container center-align">
-      <br />
-      <p class="grey-text text-darken-3 lighten-3 section-paragraph">Os esperamos en el Restaurante Abades Triana. A las 12 en punto.</p>
-    </div>
+  <div class="row container center-align">
+    <br />
+    <p class="grey-text text-darken-3 section-paragraph">Os esperamos en el Restaurante Abades Triana</p>
   </div>
+</div>
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="18">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 </agm-map>
