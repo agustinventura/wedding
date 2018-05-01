@@ -46,9 +46,13 @@ export class FirebaseAuthenticationService {
     return this.firebaseAuth.auth.signOut();
   }
 
-  emailPasswordLogin(email: string, password: string) {
-    fromPromise(
-      this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
-    ).subscribe(something => console.log(something));
+  mailLogin(mail, password) {
+    if (this.user) {
+      return of(this.user);
+    } else {
+      return fromPromise(
+        this.firebaseAuth.auth.signInWithEmailAndPassword(mail, password)
+      );
+    }
   }
 }

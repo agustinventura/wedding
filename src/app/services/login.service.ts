@@ -8,6 +8,10 @@ import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/concat';
 
+export enum LoginMethod {
+  GOOGLE, MAIL
+}
+
 @Injectable()
 export class LoginService {
   user: User;
@@ -26,9 +30,13 @@ export class LoginService {
     }
   }
 
-  private firebaseLogin() {
+  private firebaseLogin(loginMethod, mail?, password?) {
     if (!this.user) {
-      return this.firebaseAuthenticationService.googleLogin().first();
+      if (loginMethod === LoginMethod.GOOGLE) {
+        return this.firebaseAuthenticationService.googleLogin().first();
+      } else {
+        return this.firebaseAuthenticationService.mailLogin(mail, password).first();
+      }
     }
     return of(this.user);
   }
@@ -38,8 +46,8 @@ export class LoginService {
     this.firebaseAuthenticationService.googleLogout();
   }
 
-  login() {
-    this.authentication = this.firebaseLogin()
+  login(loginMethod, mail?, password?) {
+    this.authentication = this.firebaseLogin(loginMethod, mail, password)
       .first()
       .concatMap(authenticatedUser =>
         this.firebaseAuthorizationService
