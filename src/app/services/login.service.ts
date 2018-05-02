@@ -8,10 +8,6 @@ import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/concat';
 
-export enum LoginMethod {
-  GOOGLE, MAIL
-}
-
 @Injectable()
 export class LoginService {
   user: User;
@@ -30,24 +26,27 @@ export class LoginService {
     }
   }
 
-  private firebaseLogin(loginMethod, mail?, password?) {
+  private firebaseGoogleLogin() {
     if (!this.user) {
-      if (loginMethod === LoginMethod.GOOGLE) {
         return this.firebaseAuthenticationService.googleLogin().first();
-      } else {
-        return this.firebaseAuthenticationService.mailLogin(mail, password).first();
-      }
     }
     return of(this.user);
   }
 
-  logout() {
+  private firebaseMailLogin(email: string, password: string) {
+    if (!this.user) {
+      return this.firebaseAuthenticationService.mailLogin(email, password).first();
+    }
+    return of(this.user);
+  }
+
+  googleLogout() {
     this.user = null;
     this.firebaseAuthenticationService.googleLogout();
   }
 
-  login(loginMethod, mail?, password?) {
-    this.authentication = this.firebaseLogin(loginMethod, mail, password)
+  googleLogin() {
+    this.authentication = this.firebaseGoogleLogin()
       .first()
       .concatMap(authenticatedUser =>
         this.firebaseAuthorizationService
@@ -59,6 +58,17 @@ export class LoginService {
             return of(this.user);
           })
       );
+    return this.authentication;
+  }
+
+  mailLogin(email: string, password: string) {
+    this.authentication = this.firebaseMailLogin(email, password).first()
+    .concatMap(authorizedUser => {
+      if (authorizedUser) {
+        this.user = authorizedUser;
+      }
+      return of(this.user);
+    });
     return this.authentication;
   }
 }

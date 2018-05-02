@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseAuthenticationService } from '../../services/firebase-authentication.service';
-import { LoginService, LoginMethod } from '../../services/login.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-email-login',
@@ -18,7 +18,7 @@ export class EmailLoginComponent implements OnInit {
   }
 
   submit() {
-    this.loginService.login(LoginMethod.MAIL, this.email, this.password).subscribe(result => {
+    this.loginService.mailLogin(this.email, this.password).subscribe(result => {
       console.log(result);
     });
   }

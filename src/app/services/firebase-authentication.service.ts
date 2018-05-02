@@ -50,9 +50,23 @@ export class FirebaseAuthenticationService {
     if (this.user) {
       return of(this.user);
     } else {
-      return fromPromise(
-        this.firebaseAuth.auth.signInWithEmailAndPassword(mail, password)
-      );
+      this.firebaseAuth.auth
+        .signInWithEmailAndPassword(mail, password)
+        .then(result => {
+          console.log('mail authorization ok');
+          console.log(result);
+        })
+        .catch(reason => {
+          if (reason.code === 'auth/user-not-found') {
+            this.firebaseAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(
+              mail,
+              password
+            ).then(result => {
+              console.log('registered user');
+              console.log(result);
+            });
+          }
+        });
     }
   }
 }

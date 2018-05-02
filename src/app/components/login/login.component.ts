@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LoginService, LoginMethod } from '../../services/login.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    this.loginService.login(LoginMethod.GOOGLE).first().subscribe(user => {
+    this.loginService.googleLogin().first().subscribe(user => {
       if (user) {
         this.loginService.user = user;
         if (user.enabled) {
