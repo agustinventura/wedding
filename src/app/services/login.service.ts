@@ -28,14 +28,26 @@ export class LoginService {
 
   private firebaseGoogleLogin() {
     if (!this.user) {
-        return this.firebaseAuthenticationService.googleLogin().first();
+      return this.firebaseAuthenticationService.googleLogin().first();
     }
     return of(this.user);
   }
 
   private firebaseMailLogin(email: string, password: string) {
     if (!this.user) {
-      return this.firebaseAuthenticationService.mailLogin(email, password).first();
+      return this.firebaseAuthenticationService
+        .mailLogin(email, password)
+        .first()
+        .concatMap(authenticatedUser =>
+          this.firebaseAuthorizationService
+            .authorize(authenticatedUser)
+            .concatMap(authorizedUser => {
+              if (authorizedUser) {
+                this.user = authorizedUser;
+              }
+              return of(this.user);
+            })
+        );
     }
     return of(this.user);
   }
@@ -62,13 +74,14 @@ export class LoginService {
   }
 
   mailLogin(email: string, password: string) {
-    this.authentication = this.firebaseMailLogin(email, password).first()
-    .concatMap(authorizedUser => {
-      if (authorizedUser) {
-        this.user = authorizedUser;
-      }
-      return of(this.user);
-    });
+    this.authentication = this.firebaseMailLogin(email, password)
+      .first()
+      .concatMap(authorizedUser => {
+        if (authorizedUser) {
+          this.user = authorizedUser;
+        }
+        return of(this.user);
+      });
     return this.authentication;
   }
 }

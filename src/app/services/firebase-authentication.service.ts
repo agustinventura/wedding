@@ -46,27 +46,47 @@ export class FirebaseAuthenticationService {
     return this.firebaseAuth.auth.signOut();
   }
 
-  mailLogin(mail, password) {
+  mailLogin(mail, password): Observable<User> {
+    let user: Observable<User>;
     if (this.user) {
-      return of(this.user);
+      user = of(this.user);
     } else {
-      this.firebaseAuth.auth
-        .signInWithEmailAndPassword(mail, password)
-        .then(result => {
-          console.log('mail authorization ok');
-          console.log(result);
+      user = fromPromise(
+        this.firebaseAuth.auth.signInWithEmailAndPassword(mail, password)
+      )
+        .concatMap(result => {
+          this.user = new User(
+            '',
+            result.displayName,
+            result.email,
+            false,
+            true
+          );
+          return of(this.user);
         })
         .catch(reason => {
           if (reason.code === 'auth/user-not-found') {
-            this.firebaseAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(
-              mail,
-              password
-            ).then(result => {
-              console.log('registered user');
-              console.log(result);
+            user = fromPromise(
+              this.firebaseAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(
+                mail,
+                password
+              )
+            ).concatMap(result => {
+              this.user = new User(
+                '',
+                result.displayName,
+                result.email,
+                false,
+                true
+              );
+              return of(this.user);
             });
+          } else if (reason.code === 'auth/wrong-password') {
+            user = Observable.throw('Wrong password');
           }
+          return user;
         });
     }
+    return user;
   }
 }
