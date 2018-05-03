@@ -16,6 +16,9 @@
         <input id="password" type="password" class="validate" [(ngModel)]="password" name="password" required>
         <label for="icon_password" class="active">Contraseña</label>
       </div>
+      <div class="col s12 left red-text text-darken-3" *ngIf="passwordError">
+        Contraseña inválida
+      </div>
       <div class="col s12 center">
           <button type="submit" class="waves-effect waves-light btn-large"
           [disabled]="!userForm.form.valid">Ya esta</button>

@@ -12,6 +12,7 @@ export class EmailLoginComponent implements OnInit {
 
   email = '';
   password = '';
+  passwordError = false;
 
   constructor(private loginService: LoginService, private router: Router) { }
 
@@ -32,6 +33,9 @@ export class EmailLoginComponent implements OnInit {
           this.router.navigate(['user-disabled']);
         }
       }
+    },
+    error => {
+      this.passwordError = true;
     });
   }
 }
