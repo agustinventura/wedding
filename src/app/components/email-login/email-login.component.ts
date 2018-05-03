@@ -13,6 +13,7 @@ export class EmailLoginComponent implements OnInit {
   email = '';
   password = '';
   passwordError = false;
+  passwordResetSend = false;
 
   constructor(private loginService: LoginService, private router: Router) { }
 
@@ -20,6 +21,12 @@ export class EmailLoginComponent implements OnInit {
   }
 
   submit() {
+    if (this.passwordError) {
+      this.passwordError = false;
+    }
+    if (this.passwordResetSend) {
+      this.passwordResetSend = false;
+    }
     this.loginService.mailLogin(this.email, this.password).subscribe(user => {
       if (user) {
         this.loginService.user = user;
@@ -36,6 +43,13 @@ export class EmailLoginComponent implements OnInit {
     },
     error => {
       this.passwordError = true;
+    });
+  }
+
+  forgotPassword() {
+    this.loginService.forgotPassword(this.email).subscribe(result => {
+      this.passwordResetSend = true;
+      this.passwordError = false;
     });
   }
 }

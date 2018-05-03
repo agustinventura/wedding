@@ -51,7 +51,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.close();
-    this.loginService.googleLogout();
+    this.loginService.logout();
     this.router.navigate(['/logout', this.user.name]);
     this.user = null;
   }

@@ -5,23 +5,36 @@
     </p>
   </div>
   <div class="row">
-    <form class="col s12" (ngSubmit)="submit()" #userForm="ngForm">
-      <div class="input-field col s12">
-        <i class="material-icons prefix">mail</i>
-        <input id="mail" type="email" placeholder="mi@email.com" class="validate" [(ngModel)]="email" name="email" required>
-        <label for="icon_mail" class="active">Email</label>
+    <form class="col s12" (ngSubmit)="submit()" #emailLoginForm="ngForm">
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mail</i>
+          <input id="mail" type="email" placeholder="mi@email.com" class="validate" [(ngModel)]="email" name="email" required #mail="ngModel">
+          <label for="icon_mail" class="active">Email</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">lock</i>
+          <input id="password" type="password" class="validate" [(ngModel)]="password" name="password" required>
+          <label for="icon_password" class="active">Contraseña</label>
+        </div>
+        <div class="col s12 center" *ngIf="mail.touched && mail.valid">
+          <a (click)="forgotPassword()">Olvidé mi contraseña</a>
+        </div>
       </div>
-      <div class="input-field col s12">
-        <i class="material-icons prefix">lock</i>
-        <input id="password" type="password" class="validate" [(ngModel)]="password" name="password" required>
-        <label for="icon_password" class="active">Contraseña</label>
+      <div class="row">
+        <div class="col s12 center red-text text-darken-3" *ngIf="passwordError">
+          Contraseña inválida
+        </div>
       </div>
-      <div class="col s12 left red-text text-darken-3" *ngIf="passwordError">
-        Contraseña inválida
+      <div class="row">
+        <div class="col s12 center red-text text-darken-3" *ngIf="passwordResetSend">
+          Te hemos enviado un mail para cambiar tu contraseña
+        </div>
       </div>
-      <div class="col s12 center">
-          <button type="submit" class="waves-effect waves-light btn-large"
-          [disabled]="!userForm.form.valid">Ya esta</button>
+      <div class="row">
+        <div class="col s12 center">
+          <button type="submit" class="waves-effect waves-light btn-large" [disabled]="!emailLoginForm.form.valid">Ya esta</button>
+        </div>
       </div>
     </form>
   </div>

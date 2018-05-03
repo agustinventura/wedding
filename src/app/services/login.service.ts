@@ -52,9 +52,9 @@ export class LoginService {
     return of(this.user);
   }
 
-  googleLogout() {
+  logout() {
     this.user = null;
-    this.firebaseAuthenticationService.googleLogout();
+    this.firebaseAuthenticationService.logout();
   }
 
   googleLogin() {
@@ -83,5 +83,9 @@ export class LoginService {
         return of(this.user);
       });
     return this.authentication;
+  }
+
+  forgotPassword(email: string) {
+    return this.firebaseAuthenticationService.forgotPassword(email);
   }
 }

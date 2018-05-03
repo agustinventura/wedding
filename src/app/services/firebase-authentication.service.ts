@@ -41,7 +41,7 @@ export class FirebaseAuthenticationService {
     );
   }
 
-  googleLogout() {
+  logout() {
     this.user = null;
     return this.firebaseAuth.auth.signOut();
   }
@@ -88,5 +88,9 @@ export class FirebaseAuthenticationService {
         });
     }
     return user;
+  }
+
+  forgotPassword(email: string) {
+    return fromPromise(this.firebaseAuth.auth.sendPasswordResetEmail(email));
   }
 }
