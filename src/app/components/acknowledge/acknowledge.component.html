@@ -1,14 +1,16 @@
-<div class="container">
-  <p class="col s12">
-    ¡Gracias por confirmarnos tu asistencia {{user.name}}!
-  </p>
-  <p class="col s12">
-    Estamos encantados de saber
+<div class="main-container">
+  <div class="row">
+    <p class="col s12">
+      ¡Gracias por confirmarnos tu asistencia {{user.name}}!
+    </p>
+    <p class="col s12">
+      Estamos encantados de saber
       <span *ngIf="user.preferences.accompanied">que vendrás acompañado</span>
       <span *ngIf="!user.preferences.accompanied">que podrás asistir</span>
       <span *ngIf="user.preferences.numberOfChildren > 0"> y que traerás también {{user.preferences.numberOfChildren}} niños</span>
-  </p>
-  <p class="col s12" *ngIf="user.preferences.specialNeeds">
-    Además tendremos muy en cuenta que: {{user.preferences.specialNeeds}}
-  </p>
+    </p>
+    <p class="col s12" *ngIf="user.preferences.specialNeeds">
+      Además tendremos muy en cuenta que: {{user.preferences.specialNeeds}}
+    </p>
+  </div>
 </div>

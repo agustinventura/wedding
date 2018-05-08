@@ -33,6 +33,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { WindowService } from './services/window.service';
 import { EmailLoginComponent } from './components/email-login/email-login.component';
 import { UserDisabledComponent } from './components/user-disabled/user-disabled.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { UserDisabledComponent } from './components/user-disabled/user-disabled.
     AcknowledgeComponent,
     AdminComponent,
     EmailLoginComponent,
-    UserDisabledComponent
+    UserDisabledComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,
