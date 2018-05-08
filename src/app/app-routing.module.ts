@@ -47,6 +47,11 @@ const routes: Routes = [
     component: UserFormComponent,
     canActivate: [AuthguardService]
   },
+  {
+    path: 'user-form/:id',
+    component: UserFormComponent,
+    canActivate: [AuthguardService]
+  },
   { path: 'login', component: LoginComponent },
   { path: 'email-login', component: EmailLoginComponent },
   { path: 'user-disabled', component: UserDisabledComponent },

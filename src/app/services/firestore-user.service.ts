@@ -53,15 +53,52 @@ export class FirestoreUserService {
             firebaseUser.enabled,
             firebaseUser.phone,
             new UserPreferences(
-              firebaseUser.preferences ? firebaseUser.preferences.accompanied : false,
-              firebaseUser.preferences ? firebaseUser.preferences.numberOfChildren : 0,
-              firebaseUser.preferences ? firebaseUser.preferences.specialNeeds : ''
+              firebaseUser.preferences
+                ? firebaseUser.preferences.accompanied
+                : false,
+              firebaseUser.preferences
+                ? firebaseUser.preferences.numberOfChildren
+                : 0,
+              firebaseUser.preferences
+                ? firebaseUser.preferences.specialNeeds
+                : ''
             )
           )
         );
       }
       return of(users);
     });
+  }
+
+  getUser(id: string): Observable<User> {
+    return this.firestore
+      .doc('users/' + id)
+      .valueChanges()
+      .concatMap(firebaseUser => {
+        if (firebaseUser) {
+          return of(
+            new User(
+              id,
+              firebaseUser['name'],
+              firebaseUser['email'],
+              firebaseUser['admin'],
+              firebaseUser['enabled'],
+              firebaseUser['phone'],
+              new UserPreferences(
+                firebaseUser['preferences']
+                  ? firebaseUser['preferences.accompanied']
+                  : false,
+                firebaseUser['preferences']
+                  ? firebaseUser['preferences.numberOfChildren']
+                  : 0,
+                firebaseUser['preferences']
+                  ? firebaseUser['preferences.specialNeeds']
+                  : ''
+              )
+            )
+          );
+        }
+      });
   }
 
   getUserByEmail(email: string): Observable<User> {
@@ -82,9 +119,15 @@ export class FirestoreUserService {
             firebaseUser.enabled,
             firebaseUser.phone,
             new UserPreferences(
-              firebaseUser.preferences ? firebaseUser.preferences.accompanied : false,
-              firebaseUser.preferences ? firebaseUser.preferences.numberOfChildren : 0,
-              firebaseUser.preferences ? firebaseUser.preferences.specialNeeds : ''
+              firebaseUser.preferences
+                ? firebaseUser.preferences.accompanied
+                : false,
+              firebaseUser.preferences
+                ? firebaseUser.preferences.numberOfChildren
+                : 0,
+              firebaseUser.preferences
+                ? firebaseUser.preferences.specialNeeds
+                : ''
             )
           )
         );
@@ -103,11 +146,9 @@ export class FirestoreUserService {
           admin: user.admin,
           enabled: user.enabled,
           phone: user.phone,
-          preferences: user.preferences ? user.preferences.toObject() : new UserPreferences(
-            false,
-            0,
-            ''
-          ).toObject()
+          preferences: user.preferences
+            ? user.preferences.toObject()
+            : new UserPreferences(false, 0, '').toObject()
         })
       ).concatMap(() => {
         return of(user);
