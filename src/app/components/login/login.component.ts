@@ -22,7 +22,11 @@ export class LoginComponent implements OnInit {
         this.loginService.user = user;
         if (user.enabled) {
           if (user.isComplete()) {
-            this.router.navigate(['confirm']);
+            if (user.admin) {
+              this.router.navigate(['admin']);
+            } else {
+              this.router.navigate(['confirm']);
+            }
           } else {
             this.router.navigate(['user']);
           }

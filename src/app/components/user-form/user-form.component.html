@@ -1,3 +1,29 @@
-<p>
-  user-form works!
-</p>
+<div class="main-container">
+    <div class="row">
+        <div class="col s12">
+          <h5>{{title}}</h5>
+        </div>
+      </div>
+  <div class="row">
+    <form class="col s12" (ngSubmit)="submit()" #userForm="ngForm">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="username" type="text" placeholder="Nombre" class="validate" [(ngModel)]="user.name" name="username" required>
+        <label for="icon_username" class="active">Nombre y apellidos</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">phone</i>
+        <input id="phone" placeholder="+34999999999" type="tel" class="validate" [(ngModel)]="user.phone" name="phone" required>
+        <label for="icon_telephone" class="active">Teléfono</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">mail</i>
+        <input id="mail" type="email" placeholder="mi@email.com" class="validate" [(ngModel)]="user.email" name="email" required>
+        <label for="icon_mail" class="active">Email</label>
+      </div>
+      <div class="col s12 center">
+        <button type="submit" class="waves-effect waves-light btn-large" [disabled]="!userForm.form.valid">Ya esta</button>
+      </div>
+    </form>
+  </div>
+</div>

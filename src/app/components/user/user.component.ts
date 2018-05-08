@@ -27,7 +27,11 @@ export class UserComponent implements OnInit {
     this.userService.update(this.user).subscribe(user => {
       if (user) {
         this.loginService.user = user;
-        this.router.navigate(['confirm']);
+        if (user.admin) {
+          this.router.navigate(['admin']);
+        } else {
+          this.router.navigate(['confirm']);
+        }
       }
     });
   }
