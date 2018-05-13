@@ -11,6 +11,9 @@
       <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
         <a [routerLink]="menuItem.route">{{ menuItem.name | uppercase }}</a>
       </li>
+      <li *ngIf="isLoggedIn()">
+        <a routerLink="songs">CANCIONES</a>
+      </li>
       <li *ngIf="isLoggedIn() && user.admin">
         <a routerLink="admin">ADMIN</a>
       </li>
@@ -30,6 +33,9 @@
       </li>
       <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
         <a [routerLink]="menuItem.route" class="white-text" (click)="close()">{{ menuItem.name | uppercase }}</a>
+      </li>
+      <li *ngIf="isLoggedIn()">
+        <a routerLink="songs" class="white-text" (click)="close()">CANCIONES</a>
       </li>
       <li *ngIf="isLoggedIn() && user.admin">
         <a routerLink="admin" class="white-text" (click)="close()">ADMIN</a>

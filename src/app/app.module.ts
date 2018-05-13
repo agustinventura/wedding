@@ -35,6 +35,7 @@ import { EmailLoginComponent } from './components/email-login/email-login.compon
 import { UserDisabledComponent } from './components/user-disabled/user-disabled.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { BooleanPipe } from './pipes/boolean.pipe';
+import { SongsComponent } from './components/songs/songs.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { BooleanPipe } from './pipes/boolean.pipe';
     EmailLoginComponent,
     UserDisabledComponent,
     UserFormComponent,
-    BooleanPipe
+    BooleanPipe,
+    SongsComponent
   ],
   imports: [
     BrowserModule,

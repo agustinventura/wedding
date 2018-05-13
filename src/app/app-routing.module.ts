@@ -15,6 +15,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { EmailLoginComponent } from './components/email-login/email-login.component';
 import { UserDisabledComponent } from './components/user-disabled/user-disabled.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { SongsComponent } from './components/songs/songs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -40,6 +41,11 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'songs',
+    component: SongsComponent,
     canActivate: [AuthguardService]
   },
   {
