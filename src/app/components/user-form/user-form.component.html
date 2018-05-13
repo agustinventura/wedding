@@ -8,57 +8,70 @@
     <form class="col s12" (ngSubmit)="submit()" #userForm="ngForm">
       <div class="row">
         <div class="col s4 right-align form-label">
-            Nombre y apellidos
+          Nombre y apellidos
         </div>
         <div class="input-field col s8">
           <input id="username" type="text" placeholder="Nombre" class="validate" [(ngModel)]="user.name" name="username" required>
         </div>
       </div>
       <div class="row">
-          <div class="col s4 right-align form-label">
-              Teléfono
-          </div>
+        <div class="col s4 right-align form-label">
+          Teléfono
+        </div>
         <div class="input-field col s8">
           <input id="phone" placeholder="+34999999999" type="tel" class="validate" [(ngModel)]="user.phone" name="phone" required>
         </div>
       </div>
       <div class="row">
-          <div class="col s4 right-align form-label">
-              Email
-          </div>
+        <div class="col s4 right-align form-label">
+          Email
+        </div>
         <div class="input-field col s8">
           <input id="mail" type="email" placeholder="mi@email.com" class="validate" [(ngModel)]="user.email" name="email" required>
         </div>
       </div>
       <div class="row">
-          <div class="col s4 right-align form-label">
-              Acompañado
-          </div>
-          <div class="form-label col s6 switch">
-              <label>
-                Solo
-                <input type="checkbox" [(ngModel)]="user.preferences.accompanied" name="accompanied">
-                <span class="lever"></span>
-                Acompañado
-              </label>
-            </div>
-      </div>
-      <div class="row">
-          <div class="col s4 right-align form-label">
-              Niños
-          </div>
-        <div class="input-field col s8">
-                <input id="numberOfChildren" type="text" placeholder="0" class="validate" [(ngModel)]="user.preferences.numberOfChildren"
-                  name="numberOfChildren">
+        <div class="col s4 right-align form-label">
+          Acompañado
+        </div>
+        <div class="form-label col s6 switch">
+          <label>
+            Solo
+            <input type="checkbox" [(ngModel)]="user.preferences.accompanied" name="accompanied">
+            <span class="lever"></span>
+            Acompañado
+          </label>
         </div>
       </div>
       <div class="row">
-          <div class="col s4 right-align form-label">
-              Comentarios
-          </div>
-          <div class="input-field col s8">
-              <textarea id="textarea1" class="materialize-textarea" [(ngModel)]="user.preferences.specialNeeds" name="specialNeeds"></textarea>
-            </div>
+        <div class="col s4 right-align form-label">
+          Niños
+        </div>
+        <div class="input-field col s8">
+          <input id="numberOfChildren" type="text" placeholder="0" class="validate" [(ngModel)]="user.preferences.numberOfChildren"
+            name="numberOfChildren">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 right-align form-label">
+          Comentarios
+        </div>
+        <div class="input-field col s8">
+          <textarea id="textarea1" class="materialize-textarea" [(ngModel)]="user.preferences.specialNeeds" name="specialNeeds"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 right-align form-label">
+          Estado
+        </div>
+        <div class="form-label col s6 switch">
+          <label>
+            Bloqueado
+            <input type="checkbox" [(ngModel)]="user.enabled" name="enabled">
+            <span class="lever"></span>
+            Habilitado
+          </label>
+        </div>
       </div>
       <div class="row">
         <div class="input-field col s12 center">

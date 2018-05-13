@@ -45,6 +45,7 @@ export class NavbarComponent implements OnInit {
       this.user = this.loginService.user;
       return true;
     } else {
+      this.user = null;
       return false;
     }
   }
