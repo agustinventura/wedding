@@ -29,8 +29,8 @@ export class EmailLoginComponent implements OnInit {
     }
     this.loginService.mailLogin(this.email, this.password).subscribe(user => {
       if (user) {
+        this.loginService.user = user;
         if (user.enabled) {
-          this.loginService.user = user;
           if (user.isComplete()) {
             if (user.admin) {
               this.router.navigate(['admin']);
@@ -41,7 +41,6 @@ export class EmailLoginComponent implements OnInit {
             this.router.navigate(['user']);
           }
         } else {
-          this.loginService.user = null;
           this.router.navigate(['user-disabled']);
         }
       }

@@ -41,11 +41,10 @@ export class NavbarComponent implements OnInit {
   }
 
   isLoggedIn() {
-    if (this.loginService.user) {
+    if (this.loginService.user && this.loginService.user.enabled) {
       this.user = this.loginService.user;
       return true;
     } else {
-      this.user = null;
       return false;
     }
   }
