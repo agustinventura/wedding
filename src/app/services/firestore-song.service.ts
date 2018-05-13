@@ -12,6 +12,25 @@ import { from } from 'rxjs/observable/from';
 export class FirestoreSongService {
   constructor(private firestore: AngularFirestore) {}
 
+  getSongs(): Observable<Song[]> {
+    const fsSongs = this.firestore.collection('songs').snapshotChanges();
+    return fsSongs.concatMap(firestoreSongs => {
+      if (firestoreSongs.length > 0) {
+        const songs: Song[] = [];
+        for (const firestoreSong of firestoreSongs) {
+          const firestoreSongData = firestoreSong.payload.doc.data();
+          const id = firestoreSong.payload.doc.id;
+          songs.push(
+            new Song(firestoreSongData.userEmail, firestoreSongData.name)
+          );
+        }
+        return of(songs);
+      } else {
+        return Observable.empty();
+      }
+    });
+  }
+
   add(song: Song) {
     this.firestore.collection('songs').add({
       userEmail: song.userEmail,
@@ -29,7 +48,9 @@ export class FirestoreSongService {
         for (const firestoreSong of firestoreSongs) {
           const firestoreSongData = firestoreSong.payload.doc.data();
           const id = firestoreSong.payload.doc.id;
-          userSongs.push(new Song(firestoreSongData.userEmail, firestoreSongData.name));
+          userSongs.push(
+            new Song(firestoreSongData.userEmail, firestoreSongData.name)
+          );
         }
         return from(userSongs);
       } else {
@@ -42,13 +63,13 @@ export class FirestoreSongService {
     const songs = this.firestore
       .collection('songs', ref => ref.where('userEmail', '==', user.email))
       .snapshotChanges();
-      songs.first().subscribe(firestoreSongs => {
-        if (firestoreSongs.length > 0) {
-          for (const firestoreSong of firestoreSongs) {
-            const id = firestoreSong.payload.doc.id;
-            this.firestore.doc('songs/' + id).delete();
-          }
+    songs.first().subscribe(firestoreSongs => {
+      if (firestoreSongs.length > 0) {
+        for (const firestoreSong of firestoreSongs) {
+          const id = firestoreSong.payload.doc.id;
+          this.firestore.doc('songs/' + id).delete();
         }
-      });
+      }
+    });
   }
 }
