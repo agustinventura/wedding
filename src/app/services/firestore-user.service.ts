@@ -86,13 +86,13 @@ export class FirestoreUserService {
               firebaseUser['phone'],
               new UserPreferences(
                 firebaseUser['preferences']
-                  ? firebaseUser['preferences.accompanied']
+                  ? firebaseUser['preferences']['accompanied']
                   : false,
                 firebaseUser['preferences']
-                  ? firebaseUser['preferences.numberOfChildren']
+                  ? firebaseUser['preferences']['numberOfChildren']
                   : 0,
                 firebaseUser['preferences']
-                  ? firebaseUser['preferences.specialNeeds']
+                  ? firebaseUser['preferences']['specialNeeds']
                   : ''
               )
             )

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../model/user';
 import { FirestoreUserService } from '../../services/firestore-user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-form',
@@ -15,7 +15,8 @@ export class UserFormComponent implements OnInit {
 
   constructor(
     private firestoreUserService: FirestoreUserService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -26,7 +27,7 @@ export class UserFormComponent implements OnInit {
         this.title = 'Nuevo usuario';
       } else {
         this.title = 'Editar usuario';
-        this.firestoreUserService.getUser(this.id).subscribe(user => {
+        this.firestoreUserService.getUser(this.id).first().subscribe(user => {
           if (user) {
             this.user = user;
           }
@@ -35,6 +36,15 @@ export class UserFormComponent implements OnInit {
   }
 
   submit() {
-    this.firestoreUserService.register(this.user);
+    if (!this.id) {
+      this.firestoreUserService.register(this.user);
+    } else {
+      this.firestoreUserService
+      .update(this.user)
+      .first()
+      .subscribe(user => {
+        this.router.navigate(['admin']);
+      });
+    }
   }
 }

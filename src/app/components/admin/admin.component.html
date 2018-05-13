@@ -25,11 +25,11 @@
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>
             <td>{{user.phone}}</td>
-            <td>{{user.preferences.accompanied}}</td>
+            <td>{{user.preferences.accompanied | boolean}}</td>
             <td>{{user.preferences.numberOfChildren}}</td>
             <td>{{user.preferences.specialNeeds}}</td>
-            <td>{{user.admin}}</td>
-            <td>{{user.enabled}}</td>
+            <td>{{user.admin | boolean}}</td>
+            <td>{{user.enabled | boolean}}</td>
             <td>
               <a [routerLink]="['/user-form', user.id]">
                 <i class="material-icons prefix">create</i>

@@ -34,6 +34,7 @@ import { WindowService } from './services/window.service';
 import { EmailLoginComponent } from './components/email-login/email-login.component';
 import { UserDisabledComponent } from './components/user-disabled/user-disabled.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { BooleanPipe } from './pipes/boolean.pipe';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     AdminComponent,
     EmailLoginComponent,
     UserDisabledComponent,
-    UserFormComponent
+    UserFormComponent,
+    BooleanPipe
   ],
   imports: [
     BrowserModule,
