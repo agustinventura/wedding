@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
     this.user = this.loginService.user;
     this.menuItems = [
       { name: 'Dónde', route: '/where'},
-      { name: 'Vestuario', route: '/dresscode'},
+      { name: 'Cómo', route: '/how'},
       { name: 'Regalo', route: '/gift'},
       { name: 'Me apunto', route: '/confirm'},
     ];

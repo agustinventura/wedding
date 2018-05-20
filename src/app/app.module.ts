@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -19,7 +20,7 @@ import { FirestoreUserService } from './services/firestore-user.service';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { WhereComponent } from './components/where/where.component';
-import { DresscodeComponent } from './components/dresscode/dresscode.component';
+import { HowComponent } from './components/how/how.component';
 import { GiftComponent } from './components/gift/gift.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { LoginComponent } from './components/login/login.component';
@@ -36,6 +37,7 @@ import { UserDisabledComponent } from './components/user-disabled/user-disabled.
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { BooleanPipe } from './pipes/boolean.pipe';
 import { SongsComponent } from './components/songs/songs.component';
+import { AnimableComponent } from './components/common/animable/animable.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import { SongsComponent } from './components/songs/songs.component';
     NavbarComponent,
     HomeComponent,
     WhereComponent,
-    DresscodeComponent,
+    HowComponent,
     GiftComponent,
     ConfirmComponent,
     LoginComponent,
@@ -55,10 +57,12 @@ import { SongsComponent } from './components/songs/songs.component';
     UserDisabledComponent,
     UserFormComponent,
     BooleanPipe,
-    SongsComponent
+    SongsComponent,
+    AnimableComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     MaterializeModule,
