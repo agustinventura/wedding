@@ -38,8 +38,9 @@ export class AnimableComponent implements OnInit {
   checkScroll() {
     const componentPosition = this.el.nativeElement.offsetTop;
     const scrollPosition = window.pageYOffset;
+    const fourtyPercentPosition = (componentPosition * 40) / 100;
 
-    if (scrollPosition >= componentPosition - 100) {
+    if (scrollPosition >= fourtyPercentPosition) {
       this.state = 'show';
     } else {
       this.state = 'hide';
