@@ -39,6 +39,7 @@ import { BooleanPipe } from './pipes/boolean.pipe';
 import { SongsComponent } from './components/songs/songs.component';
 import { AnimableComponent } from './components/common/animable/animable.component';
 import { FlyingListComponent } from './components/common/flying-list/flying-list.component';
+import { FooterComponent } from './components/common/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { FlyingListComponent } from './components/common/flying-list/flying-list
     BooleanPipe,
     SongsComponent,
     AnimableComponent,
-    FlyingListComponent
+    FlyingListComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
