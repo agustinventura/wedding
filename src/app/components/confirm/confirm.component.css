@@ -1,3 +1,7 @@
 .dropdown-content li > a, .dropdown-content li > span {
   font-size: 14px;
 }
+
+.border-bottom {
+  border-bottom: 1px solid #66A39D;
+}

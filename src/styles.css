@@ -28,3 +28,11 @@ section {
 .form-label {
   margin-top: 25px;
 }
+
+.quote {
+  font-size: larger;
+  font-style: italic;
+  padding-left: 3em !important;
+  margin-top: 2em;
+  color: #009688 !important;
+}
