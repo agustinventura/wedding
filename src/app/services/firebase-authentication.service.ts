@@ -57,8 +57,8 @@ export class FirebaseAuthenticationService {
         .concatMap(result => {
           this.user = new User(
             '',
-            result.displayName,
-            result.email,
+            result['user']['displayName'],
+            result['user']['email'],
             false,
             true
           );
@@ -74,8 +74,8 @@ export class FirebaseAuthenticationService {
             ).concatMap(result => {
               this.user = new User(
                 '',
-                result.displayName,
-                result.email,
+                result['user']['displayName'],
+                result['user']['email'],
                 false,
                 true
               );
